@@ -79,7 +79,7 @@ const BookPage = () => {
                         {book.description}
                     </div>
                 </div>
-                <div className="hidden xl:flex w-96 h-fit p-5 flex-col rounded-lg border border-gray-300 bg-white/50">
+                <div className="hidden xl:flex w-96 h-fit p-5 flex-col rounded-lg border border-gray-300 bg-white/50 shadow-md">
                     <CartAdder book={book} />
                 </div>
             </div>
