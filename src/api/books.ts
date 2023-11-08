@@ -1,16 +1,18 @@
+import { Book } from "../types/book";
 import { books_data } from "./books_data";
 
 export const fakeBooksProvider = {
     async fetchBooks(query = "", offset = 0, limit = 30) {
         await new Promise((r) => setTimeout(r, 500)); // fake delay
-        let results = [];
+        let results: Book[] = [];
         const regex = new RegExp(query, "i");
         for (
             let src_i = (offset = 0);
-            src_i < books_data.length || results.length !== limit;
+            src_i < books_data.length && results.length !== limit;
             src_i++
         ) {
             const book = books_data[src_i];
+
             if (
                 query === "" ||
                 regex.test(book.author) ||
@@ -21,5 +23,9 @@ export const fakeBooksProvider = {
             }
         }
         return results;
+    },
+    async fetchBookById(id: number) {
+        await new Promise((r) => setTimeout(r, 500)); // fake delay
+        return books_data.find((book) => book.id === id);
     },
 };

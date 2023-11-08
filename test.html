@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>
+            Практичне завдання 5.3: Каскад. Специфічність cелекторів.
+            Наслідування
+        </title>
+        <style>
+            body {
+                font-family: "sans-serif";
+            }
+
+            p {
+                color: #444;
+            }
+
+            li {
+                color: #2139a1;
+            }
+
+            div + p.special {
+                font-size: 1.5em;
+                margin: 0.5em;
+                color: #aa2337;
+                border: 1px solid #aa2337;
+            }
+
+            /* ========== Початок зони редагування =============== */
+            h1 {
+                font-family: serif;
+            }
+
+            li[value="8"] {
+                font-weight: bold;
+                color: #aa0000;
+            }
+
+            p + p {
+                font-weight: bold;
+            }
+
+            div + p.special {
+                border: none;
+            }
+            /* ========== Кінець зони редагування =============== */
+        </style>
+    </head>
+    <body>
+        <h1>Великий заголовок</h1>
+        <p>Перший параграф</p>
+        <p>Другий параграф</p>
+        <ol>
+            <li>Несподіваний перелік</li>
+            <li value="8">якихось</li>
+            <li>речей...</li>
+        </ol>
+        <div>Навіщо тут div? Так цікавіше</div>
+        <p class="special">Останній параграф</p>
+    </body>
+</html>

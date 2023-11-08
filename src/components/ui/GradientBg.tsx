@@ -5,7 +5,6 @@ const GradientBg = () => {
     useEffect(() => {
         const element = ref.current;
         if (element && element.parentElement) {
-            console.log(element.parentElement.style.height);
             element.style.height = element.parentElement.style.height;
         }
     }, [ref]);
