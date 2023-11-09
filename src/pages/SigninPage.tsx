@@ -1,98 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
+import { DEFAUL_USER_ICON } from "../api/authApi";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../store/useUserStore";
 
 const SigninPage = () => {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState("");
+    const { signin } = useUserStore();
+    const signinHandle = () => {
+        if (lengthCheck()) {
+            signin(username);
+            navigate("/");
+        }
+    };
+    const lengthCheck = () => {
+        return username.length >= 4 && username.length <= 16;
+    };
     return (
-        <div className="container flex flex-col mx-auto bg-white rounded-lg pt-12 my-5">
-            <div className="flex justify-center w-full h-full my-auto xl:gap-14 lg:justify-normal md:gap-5 draggable">
-                <div className="flex items-center justify-center w-full lg:p-12">
-                    <div className="flex items-center xl:p-10">
-                        <form className="flex flex-col w-full h-full pb-6 text-center bg-white rounded-3xl">
-                            <h3 className="mb-3 text-4xl font-extrabold text-dark-grey-900">
-                                Sign In
-                            </h3>
-                            <p className="mb-4 text-grey-700">
-                                Enter your email and password
-                            </p>
-                            <a
-                                className="flex items-center justify-center w-full py-4 mb-6 text-sm font-medium transition duration-300 rounded-2xl text-grey-900 bg-grey-300 hover:bg-grey-400 focus:ring-4 focus:ring-grey-300"
-                                href="/"
-                                target="_blank">
-                                <img
-                                    className="h-5 mr-2"
-                                    src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/logos/logo-google.png"
-                                    alt=""
-                                />
-                                Sign in with Google
-                            </a>
-                            <div className="flex items-center mb-3">
-                                <hr className="h-0 border-b border-solid border-grey-500 grow" />
-                                <p className="mx-4 text-grey-600">or</p>
-                                <hr className="h-0 border-b border-solid border-grey-500 grow" />
-                            </div>
-                            <label
-                                htmlFor="email"
-                                className="mb-2 text-sm text-start text-grey-900">
-                                Email*
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="mail@loopple.com"
-                                className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
-                            />
-                            <label
-                                htmlFor="password"
-                                className="mb-2 text-sm text-start text-grey-900">
-                                Password*
-                            </label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Enter a password"
-                                className="flex items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
-                            />
-                            <div className="flex flex-row justify-between mb-8">
-                                <label className="relative inline-flex items-center mr-3 cursor-pointer select-none">
-                                    <input
-                                        type="checkbox"
-                                        value=""
-                                        className="sr-only peer"
-                                    />
-                                    <div className="w-5 h-5 bg-white border-2 rounded-sm border-grey-500 peer peer-checked:border-0 peer-checked:bg-purple-blue-500">
-                                        <img
-                                            className=""
-                                            src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/icons/check.png"
-                                            alt="tick"
-                                        />
-                                    </div>
-                                    <span className="ml-3 text-sm font-normal text-grey-900">
-                                        Keep me logged in
-                                    </span>
-                                </label>
-                                <a
-                                    href="/"
-                                    className="mr-4 text-sm font-medium text-purple-blue-500"
-                                    target="_blank"
-                                    rel="noreferrer">
-                                    Forget password?
-                                </a>
-                            </div>
-                            <button className="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-purple-blue-600 focus:ring-4 focus:ring-purple-blue-100 bg-purple-blue-500">
-                                Sign In
-                            </button>
-                            <p className="text-sm leading-relaxed text-grey-900">
-                                Not registered yet?
-                                <a
-                                    href="/"
-                                    className="font-bold text-grey-700"
-                                    target="_blank"
-                                    rel="noreferrer">
-                                    Create an Account
-                                </a>
-                            </p>
-                        </form>
+        <div className="flex-1 w-full h-full flex justify-center items-center">
+            <div className="flex w-fit flex-col border border-gray-300 bg-white/50 shadow-lg p-5 rounded-3xl">
+                <form
+                    className="flex flex-col items-center justify-center w-80 gap-5"
+                    action="">
+                    <h1 className="mb-3 text-4xl font-extrabold text-gray-700">
+                        Sign In
+                    </h1>
+                    <img
+                        className="w-36 h-36 img-fluid bg-white rounded-full outline outline-2 outline-gray-300"
+                        src={DEFAUL_USER_ICON}
+                        alt="userimage"
+                    />
+                    <div className="flex flex-col items-center justify-center w-full gap-1">
+                        <label
+                            htmlFor="username"
+                            className="font-medium text-lg">
+                            Username
+                        </label>
+                        <input
+                            className="h-9 rounded-full outline-none w-full px-4 border border-slate-400 bg-white/50 focus-within:bg-white/90 hover:bg-white/90   text-indigo-900 transition-colors overflow-hidden text-center"
+                            placeholder="Enter username"
+                            name="username"
+                            type="text"
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
+                        />
                     </div>
-                </div>
+                    <button
+                        disabled={!lengthCheck()}
+                        className="flex items-center justify-center w-full h-9 m-1 px-3  rounded-full bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 text-white transition-colors font-medium"
+                        onClick={signinHandle}>
+                        Signin
+                    </button>
+                </form>
             </div>
         </div>
     );

@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-
 type Props = {
     min: number;
     max: number;
@@ -8,14 +6,8 @@ type Props = {
 };
 
 const Counter = ({ min, max, value, onChange }: Props) => {
-    // const [amount, setAmount] = useState(value);
-    // useEffect(() => {
-    //     onChange(amount);
-    // }, [amount, onChange]);
-
     const setAmountChecked = (newValue: number) => {
         if (newValue >= min && newValue <= max) {
-            // setAmount(newValue);
             onChange(newValue);
         }
     };
@@ -23,7 +15,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
         <div className="counter overflow-hidden rounded-lg flex h-8 font-semibold border border-gray-300 w-fit">
             <button
                 onClick={() => setAmountChecked(value - 1)}
-                className="w-10 bg-slate-500 text-white hover:bg-slate-400 transition-colors">
+                className="w-10 bg-slate-500 text-white hover:bg-slate-500/80 active:bg-slate-400 transition-colors">
                 -
             </button>
             <input
@@ -35,7 +27,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
             />
             <button
                 onClick={() => setAmountChecked(value + 1)}
-                className="w-10 bg-slate-500 text-white hover:bg-slate-400 transition-colors">
+                className="w-10 bg-slate-500 text-white hover:bg-slate-400/80 active:bg-slate-400 transition-colors">
                 +
             </button>
         </div>

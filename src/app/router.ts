@@ -1,10 +1,11 @@
 import Layout from "./Layout";
 import { createBrowserRouter, redirect } from "react-router-dom";
-import { fakeAuthProvider } from "../api/auth";
+import { fakeAuthApi } from "../api/authApi";
 import SigninPage from "../pages/SigninPage";
 import BookListPage from "../pages/BookListPage";
 import BookPage from "../pages/BookPage";
 import CartPage from "../pages/CartPage";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -35,13 +36,21 @@ const router = createBrowserRouter([
                 loader: protectedLoader,
                 Component: CartPage,
             },
+            {
+                path: "/*",
+                Component: ErrorPage,
+            },
+            {
+                path: "error",
+                Component: ErrorPage,
+            },
         ],
     },
     {
         path: "/logout",
         async action() {
             // We signout in a "resource route" that we can hit from a fetcher.Form
-            await fakeAuthProvider.signout();
+            await fakeAuthApi.signout();
             return redirect("/");
         },
     },
@@ -62,7 +71,7 @@ async function loginAction({ request }: { request: any }) {
 
     // Sign in and redirect to the proper destination if successful.
     try {
-        await fakeAuthProvider.signin(username);
+        await fakeAuthApi.signin(username);
     } catch (error) {
         // Unused as of now but this is how you would handle invalid
         // username/password combinations - just like validating the inputs
@@ -77,7 +86,7 @@ async function loginAction({ request }: { request: any }) {
 }
 
 async function loginLoader() {
-    if (fakeAuthProvider.isAuthenticated) {
+    if (fakeAuthApi.isAuthenticated) {
         return redirect("/");
     }
     return null;
@@ -87,7 +96,7 @@ function protectedLoader({ request }: { request: any }) {
     // If the user is not logged in and tries to access `/protected`, we redirect
     // them to `/login` with a `from` parameter that allows login to redirect back
     // to this page upon successful authentication
-    if (!fakeAuthProvider.isAuthenticated) {
+    if (!fakeAuthApi.isAuthenticated) {
         let params = new URLSearchParams();
         params.set("from", new URL(request.url).pathname);
         return redirect("/login?" + params.toString());

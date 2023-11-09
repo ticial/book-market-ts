@@ -1,13 +1,13 @@
 import { CartItem } from "../types/cartItem";
 import { User } from "../types/user";
-import { createOptimizedContext } from "./OptimizedContext";
+import { createCustomContext } from "./CustomContext";
 
 interface AppContextData {
     user: User | null;
     cart: CartItem[];
 }
 
-const initialState: AppContextData = {
+export const defaultInitialState: AppContextData = {
     user: null,
     cart: [],
 };
@@ -16,4 +16,8 @@ export const {
     Provider: ContextProvider,
     useContextSelector,
     useContextUpdate,
-} = createOptimizedContext<AppContextData>(initialState);
+} = createCustomContext<AppContextData>(getInitialState());
+
+function getInitialState(): AppContextData {
+    return defaultInitialState;
+}

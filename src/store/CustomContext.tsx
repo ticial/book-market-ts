@@ -37,7 +37,7 @@ class MiniStore<T> {
     };
 }
 
-export function createOptimizedContext<T>(initialState: T) {
+export function createCustomContext<T>(initialState: T) {
     const Context = createContext<MiniStore<T> | null>(null);
 
     const Provider = ({ children }: { children: ReactNode }) => {
