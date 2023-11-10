@@ -27,13 +27,13 @@ const router = createBrowserRouter([
             },
             {
                 path: "signin",
-                action: loginAction,
-                loader: loginLoader,
+                // action: loginAction,
+                // loader: loginLoader,
                 Component: SigninPage,
             },
             {
                 path: "cart",
-                loader: protectedLoader,
+                // loader: protectedLoader,
                 Component: CartPage,
             },
             {
@@ -58,52 +58,41 @@ const router = createBrowserRouter([
 
 export default router;
 
-async function loginAction({ request }: { request: any }) {
-    let formData = await request.formData();
-    let username = formData.get("username");
+// async function loginAction({ request }: { request: any }) {
+//     let formData = await request.formData();
+//     let username = formData.get("username");
 
-    // Validate our form inputs and return validation errors via useActionData()
-    if (!username) {
-        return {
-            error: "You must provide a username to log in",
-        };
-    }
+//     // Validate our form inputs and return validation errors via useActionData()
+//     if (!username) {
+//         return {
+//             error: "You must provide a username to log in",
+//         };
+//     }
 
-    // Sign in and redirect to the proper destination if successful.
-    try {
-        await fakeAuthApi.signin(username);
-    } catch (error) {
-        // Unused as of now but this is how you would handle invalid
-        // username/password combinations - just like validating the inputs
-        // above
-        return {
-            error: "Invalid login attempt",
-        };
-    }
+//     try {
+//         await fakeAuthApi.signin(username);
+//     } catch (error) {
+//         return {
+//             error: "Invalid login attempt",
+//         };
+//     }
 
-    let redirectTo = formData.get("redirectTo");
-    return redirect(redirectTo || "/");
-}
+//     let redirectTo = formData.get("redirectTo");
+//     return redirect(redirectTo || "/");
+// }
 
-async function loginLoader() {
-    if (fakeAuthApi.isAuthenticated) {
-        return redirect("/");
-    }
-    return null;
-}
+// async function loginLoader() {
+//     if (fakeAuthApi.isAuthenticated) {
+//         return redirect("/");
+//     }
+//     return null;
+// }
 
-function protectedLoader({ request }: { request: any }) {
-    // If the user is not logged in and tries to access `/protected`, we redirect
-    // them to `/login` with a `from` parameter that allows login to redirect back
-    // to this page upon successful authentication
-    if (!fakeAuthApi.isAuthenticated) {
-        let params = new URLSearchParams();
-        params.set("from", new URL(request.url).pathname);
-        return redirect("/login?" + params.toString());
-    }
-    return null;
-}
-
-// function ProtectedPage() {
-//     return <h3>Protected</h3>;
+// function protectedLoader({ request }: { request: any }) {
+//     if (!fakeAuthApi.isAuthenticated) {
+//         let params = new URLSearchParams();
+//         params.set("from", new URL(request.url).pathname);
+//         return redirect("/login?" + params.toString());
+//     }
+//     return null;
 // }

@@ -5,6 +5,25 @@ type Props = {
     onChange: (value: number) => void;
 };
 
+const CounterButton = ({
+    text,
+    disabled,
+    onClick,
+}: {
+    text: string;
+    disabled: boolean;
+    onClick: () => void;
+}) => {
+    return (
+        <button
+            disabled={disabled}
+            onClick={onClick}
+            className="min-w-fit w-8 bg-slate-500 text-white hover:bg-slate-500/80 disabled:bg-gray-300 active:bg-slate-400 transition-colors">
+            {text}
+        </button>
+    );
+};
+
 const Counter = ({ min, max, value, onChange }: Props) => {
     const setAmountChecked = (newValue: number) => {
         if (newValue >= min && newValue <= max) {
@@ -13,23 +32,23 @@ const Counter = ({ min, max, value, onChange }: Props) => {
     };
     return (
         <div className="counter overflow-hidden rounded-lg flex h-8 font-semibold border border-gray-300 w-fit">
-            <button
+            <CounterButton
+                disabled={min === value}
+                text="-"
                 onClick={() => setAmountChecked(value - 1)}
-                className="w-10 bg-slate-500 text-white hover:bg-slate-500/80 active:bg-slate-400 transition-colors">
-                -
-            </button>
+            />
             <input
                 type="number"
-                className="outline-none focus:outline-none text-center w-16 bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
+                className="outline-none focus:outline-none text-center w-12 bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
                 name="custom-input-number"
                 onChange={(e) => setAmountChecked(Number(e.target.value))}
                 value={value}
             />
-            <button
+            <CounterButton
+                disabled={max === value}
+                text="+"
                 onClick={() => setAmountChecked(value + 1)}
-                className="w-10 bg-slate-500 text-white hover:bg-slate-400/80 active:bg-slate-400 transition-colors">
-                +
-            </button>
+            />
         </div>
     );
 };

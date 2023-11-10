@@ -1,4 +1,6 @@
+import { Book } from "./book";
+
 export type CartItem = {
-    bookId: number;
+    book: Book;
     amount: number;
 };

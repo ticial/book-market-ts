@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { DEFAUL_USER_ICON } from "../api/authApi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/useUserStore";
 
-const SigninPage = () => {
+const SigninPage = memo(() => {
+    const location = useLocation();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    const { signin } = useUserStore();
-    const signinHandle = () => {
+    const { user, signin } = useUserStore();
+    const signinHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         if (lengthCheck()) {
             signin(username);
-            navigate("/");
         }
     };
+    useEffect(() => {
+        if (user) {
+            navigate(location.state.from); // go to previous page
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
     const lengthCheck = () => {
         return username.length >= 4 && username.length <= 16;
     };
@@ -46,8 +53,9 @@ const SigninPage = () => {
                         />
                     </div>
                     <button
+                        type="submit"
                         disabled={!lengthCheck()}
-                        className="flex items-center justify-center w-full h-9 m-1 px-3  rounded-full bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 text-white transition-colors font-medium"
+                        className="flex items-center justify-center w-full h-9 m-1 px-3  rounded-full bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 disabled:bg-gray-300 text-white transition-colors font-medium"
                         onClick={signinHandle}>
                         Signin
                     </button>
@@ -55,6 +63,6 @@ const SigninPage = () => {
             </div>
         </div>
     );
-};
+});
 
 export default SigninPage;

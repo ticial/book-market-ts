@@ -2,35 +2,82 @@ import React, { useEffect, useState } from "react";
 import Search from "../components/ui/Search";
 import BookCard from "../components/BookCard";
 import { Book } from "../types/book";
-import { fakeBooksApi } from "../api/booksApi";
+import {
+    LEVEL_FILTER_OPTIONS,
+    PRICE_FILTER_OPTIONS,
+    fakeBooksApi,
+} from "../api/booksApi";
 import { useSearchParams } from "react-router-dom";
+import Select, { Option } from "../components/ui/Select";
+
+const PRICE_OPTIONS: Option[] = [
+    { key: PRICE_FILTER_OPTIONS.ANY, value: "Any Price" },
+    { key: PRICE_FILTER_OPTIONS.LT_15, value: "Up to $15" },
+    { key: PRICE_FILTER_OPTIONS.BTW_15_30, value: "$15 - $30" },
+    { key: PRICE_FILTER_OPTIONS.GT_30, value: "$30+" },
+];
+
+const LEVEL_OPTIONS: Option[] = [
+    { key: LEVEL_FILTER_OPTIONS.ANY, value: "Any Level" },
+    { key: LEVEL_FILTER_OPTIONS.BEGINNER, value: "Beginner" },
+    { key: LEVEL_FILTER_OPTIONS.MIDDLE, value: "Middle" },
+    { key: LEVEL_FILTER_OPTIONS.PRO, value: "Pro" },
+];
 
 const BookListPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchText, setSearchText] = useState(searchParams.get("q") || "");
     const [books, setBooks] = useState<Book[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const getQueryBooks = (query: string) => {
+    const [priceFilter, setPriceFilter] = useState(PRICE_FILTER_OPTIONS.ANY);
+    const [levelFilter, setLevelFilter] = useState(PRICE_FILTER_OPTIONS.ANY);
+    const updateBooksList = (
+        query: string,
+        priceFilter: number,
+        levelFilter: number
+    ) => {
         setIsLoading(true);
-        fakeBooksApi.fetchBooks(query).then((fetched_books) => {
-            setBooks(fetched_books);
-            setIsLoading(false);
-        });
+        fakeBooksApi
+            .fetchBooks(query, priceFilter, levelFilter)
+            .then((fetched_books) => {
+                setBooks(fetched_books);
+                setIsLoading(false);
+            });
     };
     const searchChangeHandle = (query: string) => {
         if (query !== "") setSearchParams({ q: query });
         else setSearchParams({});
         setSearchText(query);
-        getQueryBooks(query);
     };
     useEffect(() => {
-        getQueryBooks(searchText);
-    }, [searchText]);
+        updateBooksList(searchText, priceFilter, levelFilter);
+    }, [searchText, priceFilter, levelFilter]);
 
     return (
         <>
-            <div className="mt-2 flex justify-center top-20 w-full mb-6">
-                <Search value={searchText} onChange={searchChangeHandle} />
+            <div className="mt-2 flex flex-col justify-center items-center gap-6 top-20 w-full mb-6">
+                <div className="md:hidden flex justify-center w-full max-w-lg">
+                    <Search value={searchText} onChange={searchChangeHandle} />
+                </div>
+                <div className="flex justify-center items-center w-full gap-6">
+                    <Select
+                        selectedKey={priceFilter}
+                        options={PRICE_OPTIONS}
+                        onSelect={(key) => setPriceFilter(key)}
+                    />
+                    <div className="hidden md:flex w-full max-w-lg">
+                        <Search
+                            value={searchText}
+                            onChange={searchChangeHandle}
+                        />
+                    </div>
+
+                    <Select
+                        selectedKey={levelFilter}
+                        options={LEVEL_OPTIONS}
+                        onSelect={(key) => setLevelFilter(key)}
+                    />
+                </div>
             </div>
             <div className="flex flex-wrap justify-center gap-y-5 gap-x-3 md:gap-x-6">
                 {isLoading ? (

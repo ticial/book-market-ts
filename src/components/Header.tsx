@@ -5,9 +5,10 @@ import CartButton from "./ui/CartButton";
 import Userpic from "./Userpic";
 import { useUserStore } from "../store/useUserStore";
 import { useCartStore } from "../store/useCartStore";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
+    const location = useLocation();
     const navigate = useNavigate();
     const { user, signout } = useUserStore();
     const cart = useCartStore();
@@ -35,7 +36,7 @@ const Header = () => {
                 <div className="hidden md:flex gap-2">
                     <CartButton
                         count={cart.itemsAmount()}
-                        onClick={cart.purchase}
+                        onClick={() => navigate("cart")}
                     />
                     {user ? (
                         <>
@@ -43,7 +44,12 @@ const Header = () => {
                             <MainButton onClick={signout}>Sign Out</MainButton>
                         </>
                     ) : (
-                        <MainButton onClick={() => navigate("signin")}>
+                        <MainButton
+                            onClick={() =>
+                                navigate("/signin", {
+                                    state: { from: location.pathname },
+                                })
+                            }>
                             Sign In
                         </MainButton>
                     )}

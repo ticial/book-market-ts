@@ -28,22 +28,6 @@ const BookCard = ({ book, handleAuthorClick }: Props) => {
                                     valuesArray={book.author.split(", ")}
                                     handleClick={handleAuthorClick}
                                 />
-                                {/* {book.author
-                                    .split(", ")
-                                    .map((author, i, array) => (
-                                        <>
-                                            <button
-                                                key={author}
-                                                onClick={(e) =>
-                                                    handleAuthorClick(author)
-                                                }>
-                                                {author}
-                                                {i + 1 < array.length && (
-                                                    <span>,&nbsp;</span>
-                                                )}
-                                            </button>
-                                        </>
-                                    ))} */}
                             </span>
                         </div>
                         <div className="line-clamp-3 ml-2">

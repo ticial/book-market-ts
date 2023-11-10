@@ -18,14 +18,14 @@ export const useUserStore = () => {
         }
     }, []);
 
-    const signin = (username: string) => {
-        fakeAuthApi.signin(username).then((user) => {
+    const signin = async (username: string) => {
+        return fakeAuthApi.signin(username).then((user) => {
             updateContext({ user });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
         });
     };
 
-    const signout = () => {
+    const signout = async () => {
         fakeAuthApi.signout();
         updateContext({ user: null });
         localStorage.removeItem(STORAGE_KEY);

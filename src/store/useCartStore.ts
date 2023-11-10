@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useContextSelector, useContextUpdate } from "./AppContext";
 import { CartItem } from "../types/cartItem";
 import { fakeBooksApi } from "../api/booksApi";
+import { Book } from "../types/book";
 
 export const useCartStore = () => {
     const STORAGE_KEY = "cart";
-    const cart = useContextSelector((state) => state.cart);
+    const items = useContextSelector((state) => state.cart);
     const updateContext = useContextUpdate();
 
     useEffect(() => {
@@ -19,34 +20,40 @@ export const useCartStore = () => {
         }
     }, []);
 
-    const push = (bookId: number, amount: number) => {
-        const itemIdx = cart.findIndex((item) => item.bookId === bookId);
+    const push = (book: Book, amount: number) => {
+        const itemIdx = items.findIndex((item) => item.book.id === book.id);
         let cartItem: CartItem;
         if (itemIdx > -1) {
-            cartItem = cart.splice(itemIdx, 1)[0];
-            cartItem.amount += amount;
+            if (items[itemIdx].amount === amount) {
+                return;
+            }
+            cartItem = items.splice(itemIdx, 1)[0];
+            cartItem.amount = amount;
         } else {
-            cartItem = { bookId: bookId, amount };
+            cartItem = { book: book, amount };
         }
-        const updatedCart = [...cart, cartItem];
+        const updatedCart = [...items, cartItem];
         updateContext({ cart: updatedCart });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedCart));
     };
 
     const remove = (bookId: number) => {
-        const updatedCart = cart.filter((item) => item.bookId !== bookId);
+        const updatedCart = items.filter((item) => item.book.id !== bookId);
         updateContext({ cart: updatedCart });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedCart));
     };
 
+    const totalPrice = () =>
+        items.reduce((sum, item) => (sum += item.amount * item.book.price), 0);
+
     const purchase = () => {
-        fakeBooksApi.purchase(cart);
+        fakeBooksApi.purchase(items);
         updateContext({ cart: [] });
         localStorage.removeItem(STORAGE_KEY);
     };
 
     const itemsAmount = () =>
-        cart.reduce((sum, item) => (sum += item.amount), 0);
+        items.reduce((sum, item) => (sum += item.amount), 0);
 
-    return { cart, push, remove, purchase, itemsAmount };
+    return { items, push, remove, purchase, itemsAmount, totalPrice };
 };

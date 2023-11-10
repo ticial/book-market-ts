@@ -11,17 +11,19 @@ const CartAdder = ({ book }: Props) => {
     const [amount, setAmount] = useState(1);
     const cart = useCartStore();
     const clickHandle = () => {
-        cart.push(book.id, amount);
+        cart.push(book, amount);
         setAmount(1);
     };
     return (
         <div className="flex flex-col justify-start gap-4 ">
             <div className="flex justify-between gap-4">
-                <div className="font-bold text-xl text-red-500">
+                <div className="text-xl">
                     <span className="font-medium text-gray-800 mr-2">
                         Price:
                     </span>
-                    ${book.price}
+                    <span className="font-bold  text-red-500">
+                        ${book.price}
+                    </span>
                 </div>
                 <Counter
                     min={1}
@@ -31,11 +33,13 @@ const CartAdder = ({ book }: Props) => {
                 />
             </div>
             <div className="flex justify-between gap-4">
-                <div className="font-bold text-xl text-red-500">
+                <div className="text-xl">
                     <span className="font-medium text-gray-800 mr-2">
                         Total:
                     </span>
-                    ${(book.price * amount).toFixed(2)}
+                    <span className="font-bold  text-red-500">
+                        ${(book.price * amount).toFixed(2)}
+                    </span>
                 </div>
                 <button
                     disabled={book.amount === 0}

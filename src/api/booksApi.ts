@@ -2,6 +2,20 @@ import { Book } from "../types/book";
 import { CartItem } from "../types/cartItem";
 import { books_data } from "./books_data";
 
+export enum PRICE_FILTER_OPTIONS {
+    ANY,
+    LT_15,
+    BTW_15_30,
+    GT_30,
+}
+
+export enum LEVEL_FILTER_OPTIONS {
+    ANY,
+    BEGINNER,
+    MIDDLE,
+    PRO,
+}
+
 const BOOKS_STORAGE_KEY = "books";
 
 function getBooks() {
@@ -17,10 +31,42 @@ function getBooks() {
     }
 }
 
+function filterByPrice(book: Book, filter: PRICE_FILTER_OPTIONS) {
+    switch (filter) {
+        case PRICE_FILTER_OPTIONS.LT_15:
+            return book.price < 15;
+        case PRICE_FILTER_OPTIONS.BTW_15_30:
+            return book.price >= 15 && book.price < 30;
+        case PRICE_FILTER_OPTIONS.GT_30:
+            return book.price >= 30;
+        default:
+            return true;
+    }
+}
+
+function filterByLevel(book: Book, filter: LEVEL_FILTER_OPTIONS) {
+    switch (filter) {
+        case LEVEL_FILTER_OPTIONS.BEGINNER:
+            return book.level === "Beginner";
+        case LEVEL_FILTER_OPTIONS.MIDDLE:
+            return book.level === "Middle";
+        case LEVEL_FILTER_OPTIONS.PRO:
+            return book.level === "Pro";
+        default:
+            return true;
+    }
+}
+
 const books: Book[] = getBooks();
 
 export const fakeBooksApi = {
-    async fetchBooks(query = "", offset = 0, limit = 30) {
+    async fetchBooks(
+        query = "",
+        priceFilter = PRICE_FILTER_OPTIONS.ANY,
+        levelFilter = LEVEL_FILTER_OPTIONS.ANY,
+        offset = 0,
+        limit = 30
+    ) {
         await new Promise((r) => setTimeout(r, 500)); // fake delay
         let results: Book[] = [];
         const regex = new RegExp(query, "i");
@@ -32,10 +78,12 @@ export const fakeBooksApi = {
             const book = books[src_i];
 
             if (
-                query === "" ||
-                regex.test(book.author) ||
-                regex.test(book.title) ||
-                book.tags.includes(query)
+                filterByLevel(book, levelFilter) &&
+                filterByPrice(book, priceFilter) &&
+                (query === "" ||
+                    regex.test(book.author) ||
+                    regex.test(book.title) ||
+                    book.tags.includes(query))
             ) {
                 results.push(book);
             }
@@ -49,7 +97,7 @@ export const fakeBooksApi = {
     async purchase(items: CartItem[]) {
         await new Promise((r) => setTimeout(r, 500)); // fake delay
         items.forEach((item) => {
-            const book = books.find((book) => book.id === item.bookId);
+            const book = books.find((book) => book.id === item.book.id);
             if (book) {
                 book.amount -= item.amount;
                 if (book.amount < 0) {

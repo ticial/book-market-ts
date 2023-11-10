@@ -33,10 +33,10 @@ const Search = ({ value, onChange }: Props) => {
         onChange(searchText.trim());
     };
     return (
-        <form className="flex items-center justify-center w-full max-w-lg h-9 ">
+        <form className="flex items-center justify-center w-full h-10 ">
             <input
                 type="text"
-                className="h-full rounded-l-full outline-none w-full px-4 border shadow-md bg-white/50 focus-within:bg-white/90 hover:bg-white/90   text-slate-900 transition-colors overflow-hidden"
+                className="h-full rounded-l-full outline-none w-full px-4 border border-slate-300 shadow-md bg-white/50 focus-within:bg-white/90 hover:bg-white/90   text-slate-900 transition-colors overflow-hidden"
                 placeholder="Search"
                 onChange={inputHandle}
                 value={searchText}
