@@ -12,9 +12,9 @@ import Select, { Option } from "../components/ui/Select";
 
 const PRICE_OPTIONS: Option[] = [
     { key: PRICE_FILTER_OPTIONS.ANY, value: "Any Price" },
-    { key: PRICE_FILTER_OPTIONS.LT_15, value: "Up to $15" },
-    { key: PRICE_FILTER_OPTIONS.BTW_15_30, value: "$15 - $30" },
-    { key: PRICE_FILTER_OPTIONS.GT_30, value: "$30+" },
+    { key: PRICE_FILTER_OPTIONS.LESS15, value: "Up to $15" },
+    { key: PRICE_FILTER_OPTIONS.BTW15AND30, value: "$15 - $30" },
+    { key: PRICE_FILTER_OPTIONS.GREATER30, value: "$30+" },
 ];
 
 const LEVEL_OPTIONS: Option[] = [
@@ -30,7 +30,7 @@ const BookListPage = () => {
     const [books, setBooks] = useState<Book[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [priceFilter, setPriceFilter] = useState(PRICE_FILTER_OPTIONS.ANY);
-    const [levelFilter, setLevelFilter] = useState(PRICE_FILTER_OPTIONS.ANY);
+    const [levelFilter, setLevelFilter] = useState(LEVEL_FILTER_OPTIONS.ANY);
     const updateBooksList = (
         query: string,
         priceFilter: number,
@@ -45,13 +45,18 @@ const BookListPage = () => {
             });
     };
     const searchChangeHandle = (query: string) => {
-        if (query !== "") setSearchParams({ q: query });
-        else setSearchParams({});
         setSearchText(query);
     };
     useEffect(() => {
+        const params = {} as any;
+        if (searchText !== "") params.query = searchText;
+        if (priceFilter !== PRICE_FILTER_OPTIONS.ANY)
+            params.price = PRICE_FILTER_OPTIONS[priceFilter].toLowerCase();
+        if (levelFilter !== LEVEL_FILTER_OPTIONS.ANY)
+            params.level = LEVEL_FILTER_OPTIONS[levelFilter].toLowerCase();
+        setSearchParams(params);
         updateBooksList(searchText, priceFilter, levelFilter);
-    }, [searchText, priceFilter, levelFilter]);
+    }, [searchText, priceFilter, levelFilter, setSearchParams]);
 
     return (
         <>

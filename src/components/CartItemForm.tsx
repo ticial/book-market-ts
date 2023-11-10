@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Counter from "./ui/Counter";
 import { Book } from "../types/book";
 import { useCartStore } from "../store/useCartStore";
@@ -7,11 +7,12 @@ type Props = {
     book: Book;
 };
 
-const CartAdder = ({ book }: Props) => {
-    const [amount, setAmount] = useState(1);
+const CartItemForm = ({ book }: Props) => {
     const cart = useCartStore();
+    const item = cart.getItem(book.id);
+    const [amount, setAmount] = useState(1);
     const clickHandle = () => {
-        cart.push(book, amount);
+        cart.push(book, item ? item.amount + amount : amount);
         setAmount(1);
     };
     return (
@@ -27,7 +28,7 @@ const CartAdder = ({ book }: Props) => {
                 </div>
                 <Counter
                     min={1}
-                    max={book.amount}
+                    max={item ? book.amount - item.amount : book.amount}
                     value={book.amount === 0 ? 0 : amount}
                     onChange={setAmount}
                 />
@@ -42,9 +43,9 @@ const CartAdder = ({ book }: Props) => {
                     </span>
                 </div>
                 <button
-                    disabled={book.amount === 0}
+                    disabled={book.amount <= 0}
                     onClick={clickHandle}
-                    className="h-8 py-1 w-36 rounded-md bg-green-600 hover:bg-green-500 active:bg-green-400 text-white font-medium transition-colors">
+                    className="h-8 py-1 w-36 rounded-md bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-gray-300 text-white font-medium transition-colors">
                     Add to Cart
                 </button>
             </div>
@@ -52,4 +53,4 @@ const CartAdder = ({ book }: Props) => {
     );
 };
 
-export default CartAdder;
+export default CartItemForm;

@@ -33,7 +33,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
     return (
         <div className="counter overflow-hidden rounded-lg flex h-8 font-semibold border border-gray-300 w-fit">
             <CounterButton
-                disabled={min === value}
+                disabled={min >= value}
                 text="-"
                 onClick={() => setAmountChecked(value - 1)}
             />
@@ -45,7 +45,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
                 value={value}
             />
             <CounterButton
-                disabled={max === value}
+                disabled={max <= value}
                 text="+"
                 onClick={() => setAmountChecked(value + 1)}
             />

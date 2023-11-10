@@ -13,6 +13,7 @@ const CartPage = () => {
         if (!user) {
             navigate("/signin", { state: { from: location.pathname } });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const purchaseHandle = () => {
         cart.purchase();

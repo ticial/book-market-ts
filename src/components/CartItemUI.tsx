@@ -14,7 +14,7 @@ const CartItemUI = ({ item }: Props) => {
     const cart = useCartStore();
     useEffect(() => {
         cart.push(book, amount);
-    }, [amount]);
+    }, [amount, book, cart]);
     return (
         <div className="rounded-lg border border-gray-400 bg-white/50 p-3">
             <div className="flex gap-4 items-center flex-wrap">

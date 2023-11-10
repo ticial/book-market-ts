@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useContextSelector, useContextUpdate } from "./AppContext";
 import { fakeAuthApi } from "../api/authApi";
 
+const STORAGE_KEY = "user";
+
 export const useUserStore = () => {
-    const STORAGE_KEY = "user";
     const user = useContextSelector((state) => state.user);
     const updateContext = useContextUpdate();
 

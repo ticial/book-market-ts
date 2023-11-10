@@ -4,8 +4,9 @@ import { CartItem } from "../types/cartItem";
 import { fakeBooksApi } from "../api/booksApi";
 import { Book } from "../types/book";
 
+const STORAGE_KEY = "cart";
+
 export const useCartStore = () => {
-    const STORAGE_KEY = "cart";
     const items = useContextSelector((state) => state.cart);
     const updateContext = useContextUpdate();
 
@@ -18,6 +19,7 @@ export const useCartStore = () => {
                 console.log(error);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const push = (book: Book, amount: number) => {
@@ -55,5 +57,8 @@ export const useCartStore = () => {
     const itemsAmount = () =>
         items.reduce((sum, item) => (sum += item.amount), 0);
 
-    return { items, push, remove, purchase, itemsAmount, totalPrice };
+    const getItem = (bookId: number) =>
+        items.find((item) => item.book.id === bookId);
+
+    return { items, push, remove, purchase, itemsAmount, totalPrice, getItem };
 };

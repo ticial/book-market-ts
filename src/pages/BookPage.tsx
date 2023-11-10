@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { Book } from "../types/book";
 import { fakeBooksApi } from "../api/booksApi";
-import CartAdder from "../components/CartAdder";
+import CartItemForm from "../components/CartItemForm";
 import BookImage from "../components/ui/BookImage";
 import ButtonsArray from "../components/ButtonsArray";
 import ErrorPage from "./ErrorPage";
@@ -92,7 +92,7 @@ const BookPage = () => {
                                 </div>
                             </div>
                             <div className="xl:hidden rounded-lg border border-gray-400 bg-white/50 p-4">
-                                <CartAdder book={book} />
+                                <CartItemForm book={book} />
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ const BookPage = () => {
                 </div>
             </div>
             <div className="hidden xl:flex w-96 h-fit p-4 flex-col rounded-lg border border-gray-300 bg-white/50 shadow-md">
-                <CartAdder book={book} />
+                <CartItemForm book={book} />
             </div>
         </div>
     );

@@ -4,9 +4,9 @@ import { books_data } from "./books_data";
 
 export enum PRICE_FILTER_OPTIONS {
     ANY,
-    LT_15,
-    BTW_15_30,
-    GT_30,
+    LESS15,
+    BTW15AND30,
+    GREATER30,
 }
 
 export enum LEVEL_FILTER_OPTIONS {
@@ -33,11 +33,11 @@ function getBooks() {
 
 function filterByPrice(book: Book, filter: PRICE_FILTER_OPTIONS) {
     switch (filter) {
-        case PRICE_FILTER_OPTIONS.LT_15:
+        case PRICE_FILTER_OPTIONS.LESS15:
             return book.price < 15;
-        case PRICE_FILTER_OPTIONS.BTW_15_30:
+        case PRICE_FILTER_OPTIONS.BTW15AND30:
             return book.price >= 15 && book.price < 30;
-        case PRICE_FILTER_OPTIONS.GT_30:
+        case PRICE_FILTER_OPTIONS.GREATER30:
             return book.price >= 30;
         default:
             return true;
