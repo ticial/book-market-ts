@@ -28,10 +28,12 @@ const Header = () => {
                 </div>
 
                 <div className="md:hidden flex gap-2">
-                    <CartButton
-                        count={cart.itemsAmount()}
-                        onClick={() => navigate("cart")}
-                    />
+                    {user && (
+                        <CartButton
+                            count={cart.itemsAmount()}
+                            onClick={() => navigate("cart")}
+                        />
+                    )}
                     <MobileMenu>
                         {user ? (
                             <>
