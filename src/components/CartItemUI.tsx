@@ -17,11 +17,13 @@ const CartItemUI = ({ item }: Props) => {
     }, [amount, book, cart]);
     return (
         <div className="rounded-lg border border-gray-400 bg-white/50 p-3">
-            <div className="flex gap-4 items-center flex-wrap">
-                <div className="w-full flex-1 font-bold text-gray-700">
-                    <a href={`/books/${book.id}`}>{book.title}</a>
+            <div className="flex gap-4 flex-wrap flex-col xs:flex-row">
+                <div className="flex-1 link w-56">
+                    <a className="ml-1" href={`/books/${book.id}`}>
+                        {book.title}
+                    </a>
                 </div>
-                <div className="flex gap-10 items-center justify-between">
+                <div className="flex gap-2 sm:gap-10 items-center justify-end ">
                     <Counter
                         min={1}
                         max={book.amount}
@@ -29,7 +31,7 @@ const CartItemUI = ({ item }: Props) => {
                         onChange={setAmount}
                     />
 
-                    <div className="font-bold  text-green-700 w-20 text-center">
+                    <div className="font-bold text-green-700 w-20 text-center">
                         ${(book.price * amount).toFixed(2)}
                     </div>
                     <RemoveButton onClick={() => cart.remove(book.id)} />

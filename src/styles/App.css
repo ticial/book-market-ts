@@ -91,6 +91,18 @@ body {
     .xs\:inline {
         display: inline;
     }
+    .xs\:text-left {
+        text-align: left;
+    }
+    .xs\:flex-row {
+        flex-direction: row;
+    }
+    .xs\:text-left {
+        text-align: left;
+    }
+    .xs\:flex-row {
+        flex-direction: row;
+    }
 }
 
 .link {
