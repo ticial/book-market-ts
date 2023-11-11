@@ -2,7 +2,7 @@ import React from "react";
 import { Book } from "../types/book";
 import BookImage from "./ui/BookImage";
 import Panel from "./ui/Panel";
-import ButtonsArray from "./ButtonsArray";
+import LinksArray from "./LinksArray";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -23,9 +23,9 @@ const BookCard = ({ book, handleAuthorClick }: Props) => {
                             <div className=" text-center ">{book.title}</div>
                         </div>
                         <hr className="border-gray-400" />
-                        <div className="flex justify-center text-center font-medium text-red-800 items-center h-10">
+                        <div className="flex justify-center text-center items-center h-10">
                             <span>
-                                <ButtonsArray
+                                <LinksArray
                                     valuesArray={book.author.split(", ")}
                                     handleClick={handleAuthorClick}
                                 />

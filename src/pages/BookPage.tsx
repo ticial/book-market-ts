@@ -9,7 +9,7 @@ import { Book } from "../types/book";
 import { fakeBooksApi } from "../api/booksApi";
 import CartItemForm from "../components/CartItemForm";
 import BookImage from "../components/ui/BookImage";
-import ButtonsArray from "../components/ButtonsArray";
+import LinksArray from "../components/LinksArray";
 import ErrorPage from "./ErrorPage";
 
 const BookPage = () => {
@@ -53,7 +53,7 @@ const BookPage = () => {
                 </div>
 
                 <div className="flex flex-1 justify-center">
-                    <div className="h-full w-full  flex flex-col justify-between justify-self-end gap-4">
+                    <div className="h-full w-full flex flex-col justify-between justify-self-end gap-4">
                         <div className="flex flex-col h-full justify-between gap-4 ">
                             <div className="flex flex-col justify-start gap-4 ">
                                 <h1 className="flex justify-center text-center font-bold text-gray-700 items-center  text-3xl mt-4">
@@ -61,15 +61,15 @@ const BookPage = () => {
                                 </h1>
                                 <hr className="border-gray-400" />
                                 <div className="flex flex-col gap-4 ml-4">
-                                    <div className="flex items-start  ">
-                                        <span className="font-medium text-gray-800 mr-2">
+                                    <div>
+                                        <span className="font-medium text-gray-800">
                                             {book.author.includes(",")
                                                 ? "Authors"
                                                 : "Author"}
-                                            :
+                                            :&nbsp;
                                         </span>
-                                        <span className="font-medium text-red-800">
-                                            <ButtonsArray
+                                        <span>
+                                            <LinksArray
                                                 valuesArray={book.author.split(
                                                     ", "
                                                 )}
@@ -77,28 +77,28 @@ const BookPage = () => {
                                             />
                                         </span>
                                     </div>
-                                    <div className="flex items-start text-gray-700 ">
-                                        <span className="font-medium text-gray-800 mr-2">
-                                            Book level:
+                                    <div>
+                                        <span className="font-medium text-gray-800">
+                                            Book level:&nbsp;
                                         </span>
-                                        {book.level}
+                                        <span>{book.level}</span>
                                     </div>
-                                    <div className="flex items-start text-gray-700  ">
-                                        <span className="font-medium text-gray-800 mr-2">
-                                            Tags:
+                                    <div>
+                                        <span className="font-medium">
+                                            Tags:&nbsp;
                                         </span>
-                                        <span className="font-medium text-red-800">
-                                            <ButtonsArray
+                                        <span>
+                                            <LinksArray
                                                 valuesArray={book.tags}
                                                 handleClick={handleSetQuery}
                                             />
                                         </span>
                                     </div>
-                                    <div className="flex items-start text-gray-700  ">
-                                        <span className="font-medium text-gray-800 mr-2">
-                                            Amount:
+                                    <div>
+                                        <span className="font-medium">
+                                            Amount:&nbsp;
                                         </span>
-                                        {book.amount}
+                                        <span>{book.amount}</span>
                                     </div>
                                 </div>
                             </div>

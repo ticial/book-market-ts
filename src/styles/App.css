@@ -4,6 +4,7 @@
 
 body {
     margin: 0;
+    @apply text-gray-800;
 }
 
 #root {
@@ -90,4 +91,8 @@ body {
     .xs\:inline {
         display: inline;
     }
+}
+
+.link {
+    @apply font-medium text-red-800 hover:text-red-600;
 }

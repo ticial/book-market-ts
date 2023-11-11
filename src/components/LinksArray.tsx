@@ -5,12 +5,12 @@ type Props = {
     handleClick: (value: string) => void;
 };
 
-const ButtonsArray = ({ valuesArray, handleClick }: Props) => {
+const LinksArray = ({ valuesArray, handleClick }: Props) => {
     return (
         <>
             {valuesArray.map((value, i, array) => (
                 <button key={value} onClick={(e) => handleClick(value)}>
-                    {value}
+                    <span className="link">{value}</span>
                     {i + 1 < array.length && <span>,&nbsp;</span>}
                 </button>
             ))}
@@ -18,4 +18,4 @@ const ButtonsArray = ({ valuesArray, handleClick }: Props) => {
     );
 };
 
-export default ButtonsArray;
+export default LinksArray;
