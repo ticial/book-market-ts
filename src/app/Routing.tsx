@@ -9,6 +9,7 @@ import BookPage from "../pages/BookPage";
 import CartPage from "../pages/CartPage";
 
 const Routing = () => {
+    console.log("routing");
     return (
         <Routes>
             <Route element={<Layout />}>

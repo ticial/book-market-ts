@@ -1,23 +1,15 @@
-// import React, { useEffect } from "react";
-// import { useUserStore } from "../store/useUserStore";
-// import { useLocation, useNavigate } from "react-router-dom";
 import { useCartStore } from "../store/useCartStore";
 import CartItemUI from "../components/CartItemUI";
+import { useEffect } from "react";
 
 const CartPage = () => {
-    // const location = useLocation();
-    // const navigate = useNavigate();
-    // const { user } = useUserStore();
     const cart = useCartStore();
-    // useEffect(() => {
-    //     if (!user) {
-    //         navigate("/signin", { state: { from: location.pathname } });
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
     const purchaseHandle = () => {
         cart.purchase();
     };
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="flex-1 w-full h-full flex justify-center items-center">
@@ -43,8 +35,8 @@ const CartPage = () => {
                         ))}
                         <div className="flex justify-end">
                             <div className="flex gap-3 justify-between items-center flex-col xs:flex-row p-3 border border-green-600 rounded-lg">
-                                <div className="font-bold w-44 min-w-fit text-center xs:text-left">
-                                    <span className="ml-2 text-slate-700">
+                                <div className="ml-2 font-bold w-44 min-w-fit text-center xs:text-left">
+                                    <span className=" text-slate-700">
                                         Total price: $
                                         {cart.totalPrice().toFixed(2)}
                                     </span>
