@@ -16,7 +16,7 @@ const SigninPage = () => {
     };
     useEffect(() => {
         if (user) {
-            navigate(location.state?.from || "./"); // go to previous page
+            navigate(location.state?.from || "/"); // go to previous page
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
@@ -24,7 +24,7 @@ const SigninPage = () => {
         return username.length >= 4 && username.length <= 16;
     };
     if (user) {
-        return <Navigate to="./" replace />;
+        return <Navigate to="/" replace />;
     }
     return (
         <div className="flex-1 w-full h-full flex justify-center items-center">
