@@ -5,6 +5,7 @@ import { useUserStore } from "../store/useUserStore";
 import { useCartStore } from "../store/useCartStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "./ui/MobileMenu";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const location = useLocation();
@@ -17,13 +18,13 @@ const Header = () => {
             <div className="container xl:max-w-screen-xl flex justify-between items-center py-2 gap-2">
                 <div className="flex gap-2 items-center">
                     <div className="mx-4 text-slate-700 whitespace-nowrap font-bold  ">
-                        <a href="/" className="text-2xl">
+                        <Link to="/books" className="text-2xl">
                             <span className="text-red-600">X</span>
                             -course task
                             <span className="hidden xs:inline">
                                 / Pavlo Retivoi
                             </span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
