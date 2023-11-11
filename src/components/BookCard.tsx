@@ -14,7 +14,7 @@ const BookCard = ({ book, handleAuthorClick }: Props) => {
     return (
         <Panel className="hover:scale-105 transition-transform p-3 ">
             <div className="h-full flex flex-col gap-3 items-center ">
-                <Link to={"books/" + book.id} state={book}>
+                <Link to={"/books/" + book.id} state={book}>
                     <BookImage src={book.image} alt={book.title} />
                 </Link>
                 <div className="h-full card-content flex flex-col justify-between justify-self-end gap-3">
@@ -40,7 +40,7 @@ const BookCard = ({ book, handleAuthorClick }: Props) => {
                         <span className="pl-3 font-bold text-xl text-red-500">
                             ${book.price}
                         </span>
-                        <Link to={"books/" + book.id} state={book}>
+                        <Link to={"/books/" + book.id} state={book}>
                             <button className="px-3 py-1 rounded-md border border-slate-500 text-slate-500 hover:bg-slate-500/80 active:bg-slate-400 hover:text-white font-medium transition-colors">
                                 View
                             </button>
