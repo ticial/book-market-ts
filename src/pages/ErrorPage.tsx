@@ -8,7 +8,7 @@ const ErrorPage = () => {
                     Oops, something went wrong. 404 error
                 </h2>
                 <a href="/" className="font-medium text-red-800">
-                    Back to home?
+                    Back to catalog?
                 </a>
             </div>
         </div>

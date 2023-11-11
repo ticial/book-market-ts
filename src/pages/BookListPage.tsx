@@ -49,11 +49,11 @@ const BookListPage = () => {
     };
     useEffect(() => {
         const params = {} as any;
-        if (searchText !== "") params.query = searchText;
+        if (searchText !== "") params.q = searchText;
         if (priceFilter !== PRICE_FILTER_OPTIONS.ANY)
-            params.price = PRICE_FILTER_OPTIONS[priceFilter].toLowerCase();
+            params.p = PRICE_FILTER_OPTIONS[priceFilter].toLowerCase();
         if (levelFilter !== LEVEL_FILTER_OPTIONS.ANY)
-            params.level = LEVEL_FILTER_OPTIONS[levelFilter].toLowerCase();
+            params.l = LEVEL_FILTER_OPTIONS[levelFilter].toLowerCase();
         setSearchParams(params);
         updateBooksList(searchText, priceFilter, levelFilter);
     }, [searchText, priceFilter, levelFilter, setSearchParams]);

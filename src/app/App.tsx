@@ -1,13 +1,15 @@
 import React from "react";
 import "../styles/App.css";
-import { RouterProvider } from "react-router-dom";
-import router from "./router";
 import { ContextProvider } from "../store/AppContext";
+import Routing from "./Routing";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
     return (
         <ContextProvider>
-            <RouterProvider router={router} />
+            <BrowserRouter>
+                <Routing />
+            </BrowserRouter>
         </ContextProvider>
     );
 }

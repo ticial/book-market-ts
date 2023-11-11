@@ -17,10 +17,11 @@ export const useUserStore = () => {
                 console.log(error);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const signin = async (username: string) => {
-        return fakeAuthApi.signin(username).then((user) => {
+        fakeAuthApi.signin(username).then((user) => {
             updateContext({ user });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
         });

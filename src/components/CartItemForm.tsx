@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Counter from "./ui/Counter";
 import { Book } from "../types/book";
 import { useCartStore } from "../store/useCartStore";

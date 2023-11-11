@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
+import {
+    createSearchParams,
+    useLocation,
+    useNavigate,
+    useParams,
+} from "react-router-dom";
 import { Book } from "../types/book";
 import { fakeBooksApi } from "../api/booksApi";
 import CartItemForm from "../components/CartItemForm";
@@ -9,15 +14,21 @@ import ErrorPage from "./ErrorPage";
 
 const BookPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
     const { bookId } = useParams();
-    const [book, setBook] = useState<Book | undefined>(undefined);
-    const [isLoading, setIsLoading] = useState(true);
+    const [book, setBook] = useState<Book | undefined>(location.state);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        fakeBooksApi.fetchBookById(Number(bookId)).then((fetched_book) => {
-            setBook(fetched_book);
-            setIsLoading(false);
-        });
-    }, [bookId]);
+        if (!book) {
+            setIsLoading(true);
+            fakeBooksApi.fetchBookById(Number(bookId)).then((fetched_book) => {
+                setBook(fetched_book);
+                setIsLoading(false);
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const handleSetQuery = (query: string) => {
         navigate({
             pathname: "/books",

@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { useUserStore } from "../store/useUserStore";
-import { useLocation, useNavigate } from "react-router-dom";
+// import React, { useEffect } from "react";
+// import { useUserStore } from "../store/useUserStore";
+// import { useLocation, useNavigate } from "react-router-dom";
 import { useCartStore } from "../store/useCartStore";
 import CartItemUI from "../components/CartItemUI";
 
 const CartPage = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { user } = useUserStore();
+    // const location = useLocation();
+    // const navigate = useNavigate();
+    // const { user } = useUserStore();
     const cart = useCartStore();
-    useEffect(() => {
-        if (!user) {
-            navigate("/signin", { state: { from: location.pathname } });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate("/signin", { state: { from: location.pathname } });
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
     const purchaseHandle = () => {
         cart.purchase();
     };
@@ -26,9 +26,16 @@ const CartPage = () => {
                     Cart
                 </h1>
                 {cart.items.length === 0 ? (
-                    <div className="mb-3 font-medium text-gray-700 text-center">
-                        Empty
-                    </div>
+                    <>
+                        <div className="mb-3 font-medium text-gray-700 text-center">
+                            Empty
+                        </div>
+                        <a
+                            href="/"
+                            className="font-medium text-red-800 text-center">
+                            Back to catalog?
+                        </a>
+                    </>
                 ) : (
                     <>
                         {cart.items.map((item) => (

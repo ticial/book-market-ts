@@ -41,7 +41,6 @@ export function createCustomContext<T>(initialState: T) {
     const Context = createContext<MiniStore<T> | null>(null);
 
     const Provider = ({ children }: { children: ReactNode }) => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         const store = useMemo(() => new MiniStore(initialState), []);
 
         return <Context.Provider value={store}>{children}</Context.Provider>;

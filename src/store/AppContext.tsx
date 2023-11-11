@@ -7,7 +7,7 @@ interface AppContextData {
     cart: CartItem[];
 }
 
-export const defaultInitialState: AppContextData = {
+export const initialState: AppContextData = {
     user: null,
     cart: [],
 };
@@ -16,8 +16,4 @@ export const {
     Provider: ContextProvider,
     useContextSelector,
     useContextUpdate,
-} = createCustomContext<AppContextData>(getInitialState());
-
-function getInitialState(): AppContextData {
-    return defaultInitialState;
-}
+} = createCustomContext<AppContextData>(initialState);

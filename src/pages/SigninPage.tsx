@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DEFAUL_USER_ICON } from "../api/authApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/useUserStore";
 
-const SigninPage = memo(() => {
+const SigninPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
@@ -16,7 +16,7 @@ const SigninPage = memo(() => {
     };
     useEffect(() => {
         if (user) {
-            navigate(location.state.from); // go to previous page
+            navigate(location.state?.from || "/"); // go to previous page
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
@@ -63,6 +63,6 @@ const SigninPage = memo(() => {
             </div>
         </div>
     );
-});
+};
 
 export default SigninPage;
