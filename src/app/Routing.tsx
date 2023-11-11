@@ -18,22 +18,25 @@ const Routing = () => {
     return (
         <BrowserRouter basename="/prometheus-x-course-task">
             <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route path="" element={<Navigate to="books" replace />} />
-                    <Route path="signin" element={<SigninPage />} />
-                    <Route path="signout" element={<Signout />} />
-                    <Route path="*" element={<ErrorPage />} />
-                    <Route path="error" element={<ErrorPage />} />
+                <Route element={<Layout />}>
                     <Route
-                        path="books"
+                        path="/"
+                        element={<Navigate to="/books" replace />}
+                    />
+                    <Route path="/signin" element={<SigninPage />} />
+                    <Route path="/signout" element={<Signout />} />
+                    <Route path="/*" element={<ErrorPage />} />
+                    <Route path="/error" element={<ErrorPage />} />
+                    <Route
+                        path="/books"
                         element={<RequireAuth children={<BookListPage />} />}
                     />
                     <Route
-                        path="books/:bookId"
+                        path="/books/:bookId"
                         element={<RequireAuth children={<BookPage />} />}
                     />
                     <Route
-                        path="cart"
+                        path="/cart"
                         element={<RequireAuth children={<CartPage />} />}
                     />
                 </Route>
