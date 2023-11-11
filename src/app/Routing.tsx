@@ -42,7 +42,7 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
     let location = useLocation();
 
     if (!user) {
-        return <Navigate to="signin" state={{ from: location }} replace />;
+        return <Navigate to="./signin" state={{ from: location }} replace />;
     }
 
     return children;
@@ -54,5 +54,5 @@ const Signout = () => {
         signout();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    return <Navigate to="signin" replace />;
+    return <Navigate to="./signin" replace />;
 };
