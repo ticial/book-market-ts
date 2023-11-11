@@ -7,7 +7,7 @@ const ErrorPage = () => {
                 <h2 className="flex justify-center text-center font-bold text-gray-700 items-center  text-3xl mt-4">
                     Oops, something went wrong. 404 error
                 </h2>
-                <a href="/" className="font-medium text-red-800">
+                <a href="./" className="font-medium text-red-800">
                     Back to catalog?
                 </a>
             </div>

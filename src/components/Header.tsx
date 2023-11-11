@@ -39,14 +39,14 @@ const Header = () => {
                             <>
                                 <Userpic user={user} />
                                 <MainButton
-                                    onClick={() => navigate("/signout")}>
+                                    onClick={() => navigate("./signout")}>
                                     Sign Out
                                 </MainButton>
                             </>
                         ) : (
                             <MainButton
                                 onClick={() =>
-                                    navigate("/signin", {
+                                    navigate("./signin", {
                                         state: { from: location.pathname },
                                     })
                                 }>
@@ -61,17 +61,17 @@ const Header = () => {
                         <>
                             <CartButton
                                 count={cart.itemsAmount()}
-                                onClick={() => navigate("cart")}
+                                onClick={() => navigate("./cart")}
                             />
                             <Userpic user={user} />
-                            <MainButton onClick={() => navigate("/signout")}>
+                            <MainButton onClick={() => navigate("./signout")}>
                                 Sign Out
                             </MainButton>
                         </>
                     ) : (
                         <MainButton
                             onClick={() =>
-                                navigate("/signin", {
+                                navigate("./signin", {
                                     state: { from: location.pathname },
                                 })
                             }>

@@ -32,7 +32,7 @@ const BookPage = () => {
     }, []);
     const handleSetQuery = (query: string) => {
         navigate({
-            pathname: "/books",
+            pathname: "./books",
             search: createSearchParams({
                 q: query,
             }).toString(),
