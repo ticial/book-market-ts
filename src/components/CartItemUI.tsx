@@ -18,7 +18,7 @@ const CartItemUI = ({ item }: Props) => {
     return (
         <div className="rounded-lg border border-gray-400 bg-white/50 p-3">
             <div className="flex gap-4 flex-wrap flex-col xs:flex-row">
-                <div className="flex-1 link w-56">
+                <div className="flex flex-1 link w-56 items-center">
                     <a className="ml-1" href={`/books/${book.id}`}>
                         {book.title}
                     </a>
