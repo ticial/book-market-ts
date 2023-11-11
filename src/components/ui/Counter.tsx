@@ -31,7 +31,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
         }
     };
     return (
-        <div className="counter overflow-hidden rounded-lg flex h-8 font-semibold border border-gray-300 w-fit">
+        <div className="counter overflow-hidden rounded-lg flex h-8 font-semibold ring-1 ring-gray-300 w-fit">
             <CounterButton
                 disabled={min >= value}
                 text="-"

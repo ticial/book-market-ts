@@ -45,7 +45,7 @@ const CartItemForm = ({ book }: Props) => {
                 <button
                     disabled={book.amount <= 0}
                     onClick={clickHandle}
-                    className="h-8 py-1 w-36 rounded-md bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-gray-300 text-white font-medium transition-colors">
+                    className="h-8 w-28 rounded-md  bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-gray-300 text-white font-medium transition-colors">
                     Add to Cart
                 </button>
             </div>
