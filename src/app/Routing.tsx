@@ -16,7 +16,7 @@ import CartPage from "../pages/CartPage";
 
 const Routing = () => {
     return (
-        <BrowserRouter basename="/prometheus-x-course-task">
+        <BrowserRouter basename="/prometheus-x-course-task/">
             {/* <BrowserRouter> */}
             <Routes>
                 <Route element={<Layout />}>
