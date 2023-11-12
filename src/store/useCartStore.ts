@@ -19,22 +19,21 @@ export const useCartStore = () => {
                 console.log(error);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [items, updateContext]);
 
     const push = (book: Book, amount: number) => {
         const itemIdx = items.findIndex((item) => item.book.id === book.id);
-        let cartItem: CartItem;
+        let updatedCart: CartItem[];
         if (itemIdx > -1) {
             if (items[itemIdx].amount === amount) {
                 return;
             }
-            cartItem = items.splice(itemIdx, 1)[0];
-            cartItem.amount = amount;
+            items[itemIdx].amount = amount;
+            updatedCart = items;
         } else {
-            cartItem = { book: book, amount };
+            const cartItem = { book: book, amount };
+            updatedCart = [...items, cartItem];
         }
-        const updatedCart = [...items, cartItem];
         updateContext({ cart: updatedCart });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedCart));
     };
