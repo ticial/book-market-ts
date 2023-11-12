@@ -1,6 +1,7 @@
 import { useCartStore } from "../store/useCartStore";
 import CartItemUI from "../components/CartItemUI";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
     const cart = useCartStore();
@@ -22,11 +23,11 @@ const CartPage = () => {
                         <div className="mb-3 font-medium text-gray-700 text-center">
                             Empty
                         </div>
-                        <a
-                            href="/"
+                        <Link
+                            to={"/"}
                             className="font-medium text-red-800 text-center">
                             Back to catalog?
-                        </a>
+                        </Link>
                     </>
                 ) : (
                     <>
