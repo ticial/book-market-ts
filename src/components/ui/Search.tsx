@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useDebounce from "src/hooks/useDebounce";
 
 type Props = {
     value: string;
@@ -7,25 +8,16 @@ type Props = {
 
 const Search = ({ value, onChange }: Props) => {
     const [searchText, setSearchText] = useState("");
-    const [searchTimeout, setSearchTimeout] = useState<
-        NodeJS.Timeout | undefined
-    >(undefined);
+    const debounce = useDebounce(500);
 
     useEffect(() => {
         setSearchText(value);
     }, [value]);
 
     const inputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        clearTimeout(searchTimeout);
         const text = e.target.value;
         setSearchText(text);
-
-        // debounce method
-        setSearchTimeout(
-            setTimeout(() => {
-                onChange(text.trim());
-            }, 500)
-        );
+        debounce(() => onChange(text.trim()));
     };
 
     const clickHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
