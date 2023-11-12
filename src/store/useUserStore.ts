@@ -17,7 +17,8 @@ export const useUserStore = () => {
                 console.log(error);
             }
         }
-    }, [updateContext]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const signin = async (username: string) => {
         fakeAuthApi.signin(username).then((user) => {

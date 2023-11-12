@@ -19,7 +19,8 @@ export const useCartStore = () => {
                 console.log(error);
             }
         }
-    }, [items, updateContext]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const push = (book: Book, amount: number) => {
         const itemIdx = items.findIndex((item) => item.book.id === book.id);
@@ -29,7 +30,7 @@ export const useCartStore = () => {
                 return;
             }
             items[itemIdx].amount = amount;
-            updatedCart = items;
+            updatedCart = [...items];
         } else {
             const cartItem = { book: book, amount };
             updatedCart = [...items, cartItem];
