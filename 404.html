@@ -22,7 +22,7 @@
             // https://username.github.io/repo-name/one/two?a=b&c=d#qwe becomes
             // https://username.github.io/repo-name/?/one/two&a=b~and~c=d#qwe
             // Otherwise, leave pathSegmentsToKeep as 0.
-            var pathSegmentsToKeep = 0;
+            var pathSegmentsToKeep = 1;
 
             var l = window.location;
             l.replace(
@@ -30,7 +30,6 @@
                     "//" +
                     l.hostname +
                     (l.port ? ":" + l.port : "") +
-                    "/prometheus-x-course-task" +
                     l.pathname
                         .split("/")
                         .slice(0, 1 + pathSegmentsToKeep)
