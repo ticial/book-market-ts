@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/prometheus-x-course-task/static/css/main.4190eeb0.css",
-    "main.js": "/prometheus-x-course-task/static/js/main.5185641f.js",
+    "main.css": "/prometheus-x-course-task/static/css/main.23806458.css",
+    "main.js": "/prometheus-x-course-task/static/js/main.84cafb5d.js",
     "static/js/787.2a4d5315.chunk.js": "/prometheus-x-course-task/static/js/787.2a4d5315.chunk.js",
     "index.html": "/prometheus-x-course-task/index.html",
-    "main.4190eeb0.css.map": "/prometheus-x-course-task/static/css/main.4190eeb0.css.map",
-    "main.5185641f.js.map": "/prometheus-x-course-task/static/js/main.5185641f.js.map",
+    "main.23806458.css.map": "/prometheus-x-course-task/static/css/main.23806458.css.map",
+    "main.84cafb5d.js.map": "/prometheus-x-course-task/static/js/main.84cafb5d.js.map",
     "787.2a4d5315.chunk.js.map": "/prometheus-x-course-task/static/js/787.2a4d5315.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4190eeb0.css",
-    "static/js/main.5185641f.js"
+    "static/css/main.23806458.css",
+    "static/js/main.84cafb5d.js"
   ]
 }
