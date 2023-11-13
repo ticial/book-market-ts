@@ -29,7 +29,7 @@ export const useCartStore = () => {
                 return;
             }
             items[itemIdx].amount = amount;
-            updatedCart = items;
+            updatedCart = [...items];
         } else {
             const cartItem = { book: book, amount };
             updatedCart = [...items, cartItem];

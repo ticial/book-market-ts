@@ -65,17 +65,14 @@ export const fakeBooksApi = {
         priceFilter = PRICE_FILTER_OPTIONS.ANY,
         levelFilter = LEVEL_FILTER_OPTIONS.ANY,
         offset = 0,
-        limit = 30
+        limit: number = books.length
     ) {
         await new Promise((r) => setTimeout(r, 500)); // fake delay
         let results: Book[] = [];
+        let total = 0;
         const regex = new RegExp(query, "i");
-        for (
-            let src_i = (offset = 0);
-            src_i < books.length && results.length !== limit;
-            src_i++
-        ) {
-            const book = books[src_i];
+        for (let i = 0; i < books.length; i++) {
+            const book = books[i];
 
             if (
                 filterByLevel(book, levelFilter) &&
@@ -85,10 +82,12 @@ export const fakeBooksApi = {
                     regex.test(book.title) ||
                     book.tags.includes(query))
             ) {
-                results.push(book);
+                if (i >= offset && i < offset + limit) results.push(book);
+                total++;
             }
         }
-        return results;
+
+        return { results, total };
     },
     async fetchBookById(id: number) {
         await new Promise((r) => setTimeout(r, 500)); // fake delay
