@@ -54,6 +54,7 @@ const BookListPage = () => {
             .then(({ results, total }) => {
                 if (offset === 0) setBooks(results);
                 else setBooks([...books, ...results]);
+                setPaginationOffset(offset);
                 setPaginationTotal(total);
                 setIsLoading(false);
             });
@@ -62,6 +63,7 @@ const BookListPage = () => {
         setSearchText(query);
     };
     useEffect(() => {
+        window.scrollTo(0, 0);
         const params = {} as any;
         if (searchText !== "") params.q = searchText;
         if (priceFilter !== PRICE_FILTER_OPTIONS.ANY)
@@ -76,7 +78,6 @@ const BookListPage = () => {
     const paginationHandle = () => {
         const offset = paginationOffset + PAGINATION_LIMIT;
         updateBooksList(searchText, priceFilter, levelFilter, offset);
-        setPaginationOffset(offset);
     };
 
     const isPaginationActive = () => {
