@@ -54,6 +54,7 @@ const BookListPage = () => {
             .then(({ results, total }) => {
                 if (offset === 0) setBooks(results);
                 else setBooks([...books, ...results]);
+                setPaginationOffset(offset);
                 setPaginationTotal(total);
                 setIsLoading(false);
             });
