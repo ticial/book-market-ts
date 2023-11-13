@@ -9,6 +9,7 @@ import {
 } from "../api/booksApi";
 import { useSearchParams } from "react-router-dom";
 import Select, { Option } from "../components/ui/Select";
+import MainButton from "src/components/ui/MainButton";
 
 const PRICE_OPTIONS: Option[] = [
     { key: PRICE_FILTER_OPTIONS.ANY, value: "Any Price" },
@@ -24,23 +25,36 @@ const LEVEL_OPTIONS: Option[] = [
     { key: LEVEL_FILTER_OPTIONS.PRO, value: "Pro" },
 ];
 
+const PAGINATION_LIMIT = 12;
+
 const BookListPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchText, setSearchText] = useState(searchParams.get("q") || "");
     const [books, setBooks] = useState<Book[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [paginationOffset, setPaginationOffset] = useState(0);
+    const [paginationTotal, setPaginationTotal] = useState(0);
     const [priceFilter, setPriceFilter] = useState(PRICE_FILTER_OPTIONS.ANY);
     const [levelFilter, setLevelFilter] = useState(LEVEL_FILTER_OPTIONS.ANY);
     const updateBooksList = (
         query: string,
         priceFilter: number,
-        levelFilter: number
+        levelFilter: number,
+        offset: number = 0
     ) => {
         setIsLoading(true);
         fakeBooksApi
-            .fetchBooks(query, priceFilter, levelFilter)
-            .then((fetched_books) => {
-                setBooks(fetched_books);
+            .fetchBooks(
+                query,
+                priceFilter,
+                levelFilter,
+                offset,
+                PAGINATION_LIMIT
+            )
+            .then(({ results, total }) => {
+                if (offset === 0) setBooks(results);
+                else setBooks([...books, ...results]);
+                setPaginationTotal(total);
                 setIsLoading(false);
             });
     };
@@ -56,7 +70,18 @@ const BookListPage = () => {
             params.l = LEVEL_FILTER_OPTIONS[levelFilter].toLowerCase();
         setSearchParams(params);
         updateBooksList(searchText, priceFilter, levelFilter);
-    }, [searchText, priceFilter, levelFilter, setSearchParams]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchText, priceFilter, levelFilter]);
+
+    const paginationHandle = () => {
+        const offset = paginationOffset + PAGINATION_LIMIT;
+        updateBooksList(searchText, priceFilter, levelFilter, offset);
+        setPaginationOffset(offset);
+    };
+
+    const isPaginationActive = () => {
+        return paginationTotal > paginationOffset + PAGINATION_LIMIT;
+    };
 
     return (
         <>
@@ -84,21 +109,30 @@ const BookListPage = () => {
                     />
                 </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-y-5 gap-x-3 md:gap-x-6">
-                {isLoading ? (
-                    <>Loading...</>
-                ) : books.length === 0 ? (
-                    <>Not found...</>
-                ) : (
-                    books.map((book) => (
-                        <BookCard
-                            key={book.id}
-                            book={book}
-                            handleAuthorClick={searchChangeHandle}
-                        />
-                    ))
-                )}
-            </div>
+            {!isLoading && books.length === 0 ? (
+                <>Not found...</>
+            ) : (
+                <>
+                    <div className="flex flex-wrap justify-center gap-y-5 gap-x-3 md:gap-x-6 mb-6">
+                        {books.map((book) => (
+                            <BookCard
+                                key={book.id}
+                                book={book}
+                                handleAuthorClick={searchChangeHandle}
+                            />
+                        ))}
+                    </div>
+                    {isLoading ? (
+                        <>Loading...</>
+                    ) : (
+                        isPaginationActive() && (
+                            <MainButton onClick={paginationHandle}>
+                                Show more
+                            </MainButton>
+                        )
+                    )}
+                </>
+            )}
         </>
     );
 };
