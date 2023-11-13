@@ -24,6 +24,7 @@ const LEVEL_OPTIONS: Option[] = [
     { key: LEVEL_FILTER_OPTIONS.MIDDLE, value: "Middle" },
     { key: LEVEL_FILTER_OPTIONS.PRO, value: "Pro" },
 ];
+
 const PAGINATION_LIMIT = 12;
 
 const BookListPage = () => {
