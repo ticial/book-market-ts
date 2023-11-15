@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/App.css";
-import { ContextProvider } from "../store/AppContext";
 import Routing from "./Routing";
+import { useLocation } from "react-router-dom";
 
 function App() {
-    return (
-        <ContextProvider>
-            <Routing />
-        </ContextProvider>
-    );
+    const location = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
+    return <Routing />;
 }
 
 export default App;
