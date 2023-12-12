@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DEFAUL_USER_ICON } from "../api/authApi";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/useUserStore";
 
 const SigninPage = () => {
@@ -23,9 +23,7 @@ const SigninPage = () => {
     const lengthCheck = () => {
         return username.length >= 4 && username.length <= 16;
     };
-    if (user) {
-        return <Navigate to="/" replace />;
-    }
+
     return (
         <div className="flex-1 w-full h-full flex justify-center items-center">
             <div className="flex w-fit flex-col border border-gray-300 bg-white/50 shadow-lg p-5 rounded-3xl">

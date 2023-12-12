@@ -1,15 +1,11 @@
 import { useCartStore } from "../store/useCartStore";
 import CartItemUI from "../components/CartItemUI";
-import { useEffect } from "react";
 
 const CartPage = () => {
     const cart = useCartStore();
     const purchaseHandle = () => {
         cart.purchase();
     };
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     return (
         <div className="flex-1 w-full h-full flex justify-center items-center">

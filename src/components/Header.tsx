@@ -8,81 +8,76 @@ import MobileMenu from "./ui/MobileMenu";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { user } = useUserStore();
-    const cart = useCartStore();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signout } = useUserStore();
+  const cart = useCartStore();
 
-    return (
-        <header className="h-16 flex justify-center fixed w-full transition-colors backdrop-blur bg-white/50 supports-backdrop-blur:bg-white/50 border-b border-slate-200/50 shadow-md z-50">
-            <div className="container xl:max-w-screen-xl flex justify-between items-center py-2 gap-2">
-                <div className="flex gap-2 items-center">
-                    <div className="mx-4 text-slate-700 whitespace-nowrap font-bold  ">
-                        <Link to="/books" className="text-2xl">
-                            <span className="text-red-600">X</span>
-                            -course task
-                            <span className="hidden xs:inline">
-                                / Pavlo Retivoi
-                            </span>
-                        </Link>
-                    </div>
-                </div>
+  return (
+    <header className="h-16 flex justify-center fixed w-full transition-colors backdrop-blur bg-white/50 supports-backdrop-blur:bg-white/50 border-b border-slate-200/50 shadow-md z-50">
+      <div className="container xl:max-w-screen-xl flex justify-between items-center py-2 gap-2">
+        <div className="flex gap-2 items-center">
+          <div className="mx-4 text-slate-700 whitespace-nowrap font-bold  ">
+            <Link to="/books" className="text-2xl">
+              <span className="text-red-600">X</span>
+              -course task
+              <span className="hidden xs:inline">/ Pavlo Retivoi</span>
+            </Link>
+          </div>
+        </div>
 
-                <div className="md:hidden flex gap-2">
-                    {user && (
-                        <CartButton
-                            count={cart.itemsAmount()}
-                            onClick={() => navigate("/cart")}
-                        />
-                    )}
-                    <MobileMenu>
-                        {user ? (
-                            <>
-                                <Userpic user={user} />
-                                <MainButton
-                                    onClick={() => navigate("/signout")}>
-                                    Sign Out
-                                </MainButton>
-                            </>
-                        ) : (
-                            <MainButton
-                                onClick={() =>
-                                    navigate("/signin", {
-                                        state: { from: location.pathname },
-                                    })
-                                }>
-                                Sign In
-                            </MainButton>
-                        )}
-                    </MobileMenu>
-                </div>
+        <div className="md:hidden flex gap-2">
+          {user && (
+            <CartButton
+              count={cart.itemsAmount()}
+              onClick={() => navigate("/cart")}
+            />
+          )}
+          <MobileMenu>
+            {user ? (
+              <>
+                <Userpic user={user} />
+                <MainButton onClick={() => navigate("/signout")}>
+                  Sign Out
+                </MainButton>
+              </>
+            ) : (
+              <MainButton
+                onClick={() =>
+                  navigate("/signin", {
+                    state: { from: location.pathname },
+                  })
+                }>
+                Sign In
+              </MainButton>
+            )}
+          </MobileMenu>
+        </div>
 
-                <div className="hidden md:flex gap-2">
-                    {user ? (
-                        <>
-                            <CartButton
-                                count={cart.itemsAmount()}
-                                onClick={() => navigate("/cart")}
-                            />
-                            <Userpic user={user} />
-                            <MainButton onClick={() => navigate("/signout")}>
-                                Sign Out
-                            </MainButton>
-                        </>
-                    ) : (
-                        <MainButton
-                            onClick={() =>
-                                navigate("/signin", {
-                                    state: { from: location.pathname },
-                                })
-                            }>
-                            Sign In
-                        </MainButton>
-                    )}
-                </div>
-            </div>
-        </header>
-    );
+        <div className="hidden md:flex gap-2">
+          {user ? (
+            <>
+              <CartButton
+                count={cart.itemsAmount()}
+                onClick={() => navigate("/cart")}
+              />
+              <Userpic user={user} />
+              <MainButton onClick={() => signout()}>Sign Out</MainButton>
+            </>
+          ) : (
+            <MainButton
+              onClick={() =>
+                navigate("/signin", {
+                  state: { from: location.pathname },
+                })
+              }>
+              Sign In
+            </MainButton>
+          )}
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;

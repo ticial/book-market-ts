@@ -20,7 +20,6 @@ const BookPage = () => {
     const [book, setBook] = useState<Book | undefined>(location.state);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        window.scrollTo(0, 0);
         if (!book) {
             setIsLoading(true);
             fakeBooksApi.fetchBookById(Number(bookId)).then((fetched_book) => {
