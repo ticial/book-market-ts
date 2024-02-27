@@ -1,8 +1,8 @@
 import MainButton from "./ui/MainButton";
 import CartButton from "./ui/CartButton";
 import Userpic from "./Userpic";
-import { useUserStore } from "../store/useUserStore";
-import { useCartStore } from "../store/useCartStore";
+import { useUserStore } from "store/useUserStore";
+import { useCartStore } from "store/useCartStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "./ui/MobileMenu";
 import { Link } from "react-router-dom";
@@ -10,8 +10,28 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signout } = useUserStore();
+  const { user } = useUserStore();
   const cart = useCartStore();
+
+  const buttonsGroup = () => (
+    <>
+      {user ? (
+        <>
+          <Userpic user={user} />
+          <MainButton onClick={() => navigate("/signout")}>Sign Out</MainButton>
+        </>
+      ) : (
+        <MainButton
+          onClick={() =>
+            navigate("/signin", {
+              state: { from: location.pathname },
+            })
+          }>
+          Sign In
+        </MainButton>
+      )}
+    </>
+  );
 
   return (
     <header className="h-16 flex justify-center fixed w-full transition-colors backdrop-blur bg-white/50 supports-backdrop-blur:bg-white/50 border-b border-slate-200/50 shadow-md z-50">
@@ -26,54 +46,16 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="md:hidden flex gap-2">
+        <div className="flex gap-2">
           {user && (
             <CartButton
               count={cart.itemsAmount()}
               onClick={() => navigate("/cart")}
             />
           )}
-          <MobileMenu>
-            {user ? (
-              <>
-                <Userpic user={user} />
-                <MainButton onClick={() => navigate("/signout")}>
-                  Sign Out
-                </MainButton>
-              </>
-            ) : (
-              <MainButton
-                onClick={() =>
-                  navigate("/signin", {
-                    state: { from: location.pathname },
-                  })
-                }>
-                Sign In
-              </MainButton>
-            )}
-          </MobileMenu>
-        </div>
+          <MobileMenu>{buttonsGroup()}</MobileMenu>
 
-        <div className="hidden md:flex gap-2">
-          {user ? (
-            <>
-              <CartButton
-                count={cart.itemsAmount()}
-                onClick={() => navigate("/cart")}
-              />
-              <Userpic user={user} />
-              <MainButton onClick={() => signout()}>Sign Out</MainButton>
-            </>
-          ) : (
-            <MainButton
-              onClick={() =>
-                navigate("/signin", {
-                  state: { from: location.pathname },
-                })
-              }>
-              Sign In
-            </MainButton>
-          )}
+          <div className="hidden md:flex gap-2">{buttonsGroup()}</div>
         </div>
       </div>
     </header>

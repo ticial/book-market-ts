@@ -1,19 +1,19 @@
-import { CartItem } from "../types/cartItem";
-import { User } from "../types/user";
+import { CartItem } from "types/cartItem";
+import { User } from "types/user";
 import { createCustomContext } from "./CustomContext";
 
 interface AppContextData {
-    user: User | null;
-    cart: CartItem[];
+  user: User | null;
+  cart: CartItem[];
 }
 
 export const initialState: AppContextData = {
-    user: null,
-    cart: [],
+  user: null,
+  cart: [],
 };
 
 export const {
-    Provider: ContextProvider,
-    useContextSelector,
-    useContextUpdate,
+  Provider: ContextProvider,
+  useContextSelector,
+  useContextUpdate,
 } = createCustomContext<AppContextData>(initialState);

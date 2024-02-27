@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Layout from "./Layout";
-import { useUserStore } from "../store/useUserStore";
-import SigninPage from "../pages/SigninPage";
-import BookListPage from "../pages/BookListPage";
-import ErrorPage from "../pages/ErrorPage";
-import BookPage from "../pages/BookPage";
-import CartPage from "../pages/CartPage";
+import { useUserStore } from "store/useUserStore";
+import SigninPage from "pages/SigninPage";
+import BookListPage from "pages/BookListPage";
+import ErrorPage from "pages/ErrorPage";
+import BookPage from "pages/BookPage";
+import CartPage from "pages/CartPage";
 
 const Routing = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Navigate to="/books" replace />} />
-        <Route path="/signin" element={<SigninPage />} />
-        <Route path="/signout" element={<Signout />} />
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/error" element={<ErrorPage />} />
+        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/signout" element={<Signout />} />
         <Route path="/books" element={<BookListPage />} />
         <Route path="/books/:bookId" element={<BookPage />} />
         <Route element={<RequireAuth />}>
