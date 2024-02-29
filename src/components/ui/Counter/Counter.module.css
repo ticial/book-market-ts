@@ -1,0 +1,17 @@
+.counter {
+  @apply overflow-hidden rounded-lg flex h-9 font-semibold ring-1 ring-gray-300 w-fit;
+}
+
+.input {
+  @apply outline-none focus:outline-none text-center w-12 bg-white font-semibold hover:text-black focus:text-black  flex items-center text-gray-700;
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button {
+  @apply w-9 bg-slate-500 text-white hover:bg-slate-500/80 disabled:bg-gray-300 active:bg-slate-400 transition-colors;
+}

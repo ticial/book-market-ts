@@ -1,19 +1,19 @@
-import Icon from "components/svg/Icon";
+import Icon from "components/ui/Icon/Icon";
 import useOutsideClick from "hooks/useOutsideClick";
 import { useState } from "react";
 import SelectItem from "./SelectItem";
 
-export type Option = { key: number; value: string };
+export type Option = { key: string; value: string };
 
 type Props = {
-  selectedKey: number;
+  selectedKey: string;
   options: Option[];
-  onSelect: (key: number) => void;
+  onSelect: (key: string) => void;
 };
 
 const Select = ({ selectedKey, options, onSelect }: Props) => {
   const [open, setOpen] = useState(false);
-  const getSelected = (key: number) =>
+  const getSelected = (key: string) =>
     options.find((option) => option.key === key) || options[0];
   const [selected, setSelected] = useState<Option>(getSelected(selectedKey));
   const clickItemHandle = (option: Option) => {

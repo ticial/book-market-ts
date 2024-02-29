@@ -1,3 +1,6 @@
+import Button from "../Button/Button";
+import styles from "./Counter.module.css";
+
 type Props = {
   text: string;
   disabled: boolean;
@@ -6,12 +9,14 @@ type Props = {
 
 const CounterButton = ({ text, disabled, onClick }: Props) => {
   return (
-    <button
+    <Button
       disabled={disabled}
+      size={9}
+      rounded="none"
       onClick={onClick}
-      className="min-w-fit w-8 bg-slate-500 text-white hover:bg-slate-500/80 disabled:bg-gray-300 active:bg-slate-400 transition-colors">
+      className="w-9">
       {text}
-    </button>
+    </Button>
   );
 };
 

@@ -1,0 +1,31 @@
+.base {
+  @apply flex items-center justify-center transition-colors;
+}
+
+.text {
+  @apply base px-5 font-medium;
+}
+
+.icon {
+  @apply base w-10 text-slate-500 border-slate-500 border hover:bg-slate-500 active:bg-slate-400 hover:text-white;
+}
+
+.iconRed {
+  @apply base w-10 border-red-700 border rounded-lg text-red-700 hover:bg-red-700/80 active:bg-red-600 hover:text-white;
+}
+
+.greyFilled {
+  @apply bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 text-white;
+}
+
+.grey {
+  @apply text-slate-500 border-slate-500 border hover:bg-slate-500 active:bg-slate-400 hover:text-white;
+}
+
+.red {
+  @apply border-red-700 border rounded-lg text-red-700 hover:bg-red-700/80 active:bg-red-600 hover:text-white;
+}
+
+.green {
+  @apply bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-gray-300 text-white transition-colors;
+}

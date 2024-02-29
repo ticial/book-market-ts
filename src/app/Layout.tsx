@@ -1,7 +1,7 @@
-import Header from "components/Header";
-import Footer from "components/Footer";
+import Header from "components/Header/Header";
+import Footer from "components/Footer/Footer";
 import { Outlet } from "react-router-dom";
-import GradientBg from "components/ui/GradientBg";
+import GradientBg from "components/ui/GradientBg/GradientBg";
 
 const Layout = () => {
   return (

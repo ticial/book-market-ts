@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import Layout from "./Layout";
 import { useUserStore } from "store/useUserStore";
-import SigninPage from "pages/SigninPage";
-import BookListPage from "pages/BookListPage";
-import ErrorPage from "pages/ErrorPage";
-import BookPage from "pages/BookPage";
-import CartPage from "pages/CartPage";
+import SigninPage from "pages/SigninPage/SigninPage";
+import BookListPage from "pages/BookListPage/BookListPage";
+import ErrorPage from "pages/ErrorPage/ErrorPage";
+import BookPage from "pages/BookPage/BookPage";
+import CartPage from "pages/CartPage/CartPage";
 
 const Routing = () => {
   return (

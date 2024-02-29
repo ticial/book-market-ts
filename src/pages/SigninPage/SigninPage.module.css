@@ -1,0 +1,15 @@
+.form {
+  @apply flex flex-col items-center justify-center w-80 gap-5;
+}
+
+.title {
+  @apply mb-3 text-4xl font-extrabold text-gray-700;
+}
+
+.userpic {
+  @apply w-36 h-36 bg-white rounded-full outline outline-2 outline-gray-300;
+}
+
+.input {
+  @apply h-10 rounded-full outline-none w-full px-4 border border-slate-400 bg-white/50 focus-within:bg-white/90 hover:bg-white/90   text-slate-900 transition-colors overflow-hidden text-center;
+}

@@ -1,6 +1,6 @@
-import { Book } from "./book";
+import { IBook } from "./book";
 
-export type CartItem = {
-  book: Book;
+export type ICartItem = {
+  book: IBook;
   amount: number;
 };

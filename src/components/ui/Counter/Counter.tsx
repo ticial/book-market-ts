@@ -1,5 +1,6 @@
 import { clamp, formatNumber } from "utils/numberUtils";
 import CounterButton from "./CounterButton";
+import styles from "./Counter.module.css";
 
 type Props = {
   min: number;
@@ -19,7 +20,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
   };
 
   return (
-    <div className="counter overflow-hidden rounded-lg flex h-8 font-semibold ring-1 ring-gray-300 w-fit">
+    <div className={styles.counter}>
       <CounterButton
         disabled={min >= value}
         text="-"
@@ -27,7 +28,7 @@ const Counter = ({ min, max, value, onChange }: Props) => {
       />
       <input
         type="number"
-        className="outline-none focus:outline-none text-center w-12 bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
+        className={styles.input}
         name="custom-input-number"
         onChange={(e) => onChange(Number(e.target.value))}
         value={formatNumber(value)}

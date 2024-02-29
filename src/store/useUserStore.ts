@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useContextSelector, useContextUpdate } from "./AppContext";
-import { fakeAuthApi } from "../api/authApi";
+import { fakeAuthApi } from "api/authApi";
 
 const STORAGE_KEY = "user";
 

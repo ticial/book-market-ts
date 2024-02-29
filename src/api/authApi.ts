@@ -1,4 +1,4 @@
-import { User } from "types/user";
+import { IUser } from "types/user";
 
 export const DEFAUL_USER_ICON =
   "https://prometheus-platform.github.io/Example_of_course_project_2/static/media/avatar.0d14c6999b4a5c8e86a7.png";
@@ -8,7 +8,7 @@ export const fakeAuthApi = {
   async signin(username: string) {
     await new Promise((r) => setTimeout(r, 500)); // fake delay
     fakeAuthApi.isAuthenticated = true;
-    const user: User = {
+    const user: IUser = {
       username,
       image: DEFAUL_USER_ICON,
     };

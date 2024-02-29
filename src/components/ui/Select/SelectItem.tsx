@@ -1,4 +1,4 @@
-import Icon from "components/svg/Icon";
+import Icon from "components/ui/Icon/Icon";
 
 type Props = {
   value: string;

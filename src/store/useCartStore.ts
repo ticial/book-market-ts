@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useContextSelector, useContextUpdate } from "./AppContext";
-import { CartItem } from "../types/cartItem";
-import { fakeBooksApi } from "../api/booksApi";
-import { Book } from "../types/book";
+import { ICartItem } from "types/cartItem";
+import { fakeBooksApi } from "api/booksApi";
+import { IBook } from "types/book";
 
 const STORAGE_KEY = "cart";
 
@@ -22,9 +22,9 @@ export const useCartStore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const push = (book: Book, amount: number) => {
+  const push = (book: IBook, amount: number) => {
     const itemIdx = items.findIndex((item) => item.book.id === book.id);
-    let updatedCart: CartItem[];
+    let updatedCart: ICartItem[];
     if (itemIdx > -1) {
       if (items[itemIdx].amount === amount) {
         return;

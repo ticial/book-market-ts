@@ -1,19 +1,19 @@
-import { Book } from "types/book";
-import { CartItem } from "types/cartItem";
-import { books_data } from "./books_data";
+import { IBook } from "types/book";
+import { ICartItem } from "types/cartItem";
+import { booksData } from "./booksData";
 
 export enum PRICE_FILTER_OPTIONS {
-  ANY,
-  LESS15,
-  BTW15AND30,
-  GREATER30,
+  ANY = "any",
+  LESS15 = "less15",
+  BTW15AND30 = "btw15and30",
+  GREATER30 = "greater30",
 }
 
 export enum LEVEL_FILTER_OPTIONS {
-  ANY,
-  BEGINNER,
-  MIDDLE,
-  PRO,
+  ANY = "any",
+  BEGINNER = "beginner",
+  MIDDLE = "middle",
+  PRO = "pro",
 }
 
 const BOOKS_STORAGE_KEY = "books";
@@ -21,8 +21,8 @@ const BOOKS_STORAGE_KEY = "books";
 function getBooks() {
   let storageItem = localStorage.getItem(BOOKS_STORAGE_KEY);
   if (!storageItem) {
-    localStorage.setItem(BOOKS_STORAGE_KEY, JSON.stringify(books_data));
-    return books_data;
+    localStorage.setItem(BOOKS_STORAGE_KEY, JSON.stringify(booksData));
+    return booksData;
   }
   try {
     return JSON.parse(storageItem);
@@ -31,7 +31,7 @@ function getBooks() {
   }
 }
 
-function filterByPrice(book: Book, filter: PRICE_FILTER_OPTIONS) {
+function filterByPrice(book: IBook, filter: PRICE_FILTER_OPTIONS) {
   switch (filter) {
     case PRICE_FILTER_OPTIONS.LESS15:
       return book.price < 15;
@@ -44,7 +44,7 @@ function filterByPrice(book: Book, filter: PRICE_FILTER_OPTIONS) {
   }
 }
 
-function filterByLevel(book: Book, filter: LEVEL_FILTER_OPTIONS) {
+function filterByLevel(book: IBook, filter: LEVEL_FILTER_OPTIONS) {
   switch (filter) {
     case LEVEL_FILTER_OPTIONS.BEGINNER:
       return book.level === "Beginner";
@@ -57,7 +57,7 @@ function filterByLevel(book: Book, filter: LEVEL_FILTER_OPTIONS) {
   }
 }
 
-const books: Book[] = getBooks();
+const books: IBook[] = getBooks();
 
 export const fakeBooksApi = {
   async fetchBooks(
@@ -68,7 +68,7 @@ export const fakeBooksApi = {
     limit: number = books.length
   ) {
     await new Promise((r) => setTimeout(r, 500)); // fake delay
-    let results: Book[] = [];
+    let results: IBook[] = [];
     let total = 0;
     const regex = new RegExp(query, "i");
     for (let i = 0; i < books.length; i++) {
@@ -93,7 +93,7 @@ export const fakeBooksApi = {
     await new Promise((r) => setTimeout(r, 500)); // fake delay
     return books.find((book) => book.id === id);
   },
-  async purchase(items: CartItem[]) {
+  async purchase(items: ICartItem[]) {
     await new Promise((r) => setTimeout(r, 500)); // fake delay
     items.forEach((item) => {
       const book = books.find((book) => book.id === item.book.id);

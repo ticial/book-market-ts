@@ -1,10 +1,10 @@
-import { CartItem } from "types/cartItem";
-import { User } from "types/user";
+import { ICartItem } from "types/cartItem";
+import { IUser } from "types/user";
 import { createCustomContext } from "./CustomContext";
 
 interface AppContextData {
-  user: User | null;
-  cart: CartItem[];
+  user: IUser | null;
+  cart: ICartItem[];
 }
 
 export const initialState: AppContextData = {
