@@ -29,7 +29,8 @@ const Counter = ({ min, max, value, onChange }: Props) => {
       <input
         type="number"
         className={styles.input}
-        name="custom-input-number"
+        data-testid="counter-input"
+        name="counter-input"
         onChange={(e) => onChange(Number(e.target.value))}
         value={formatNumber(value)}
         onBlur={blurHandle}
