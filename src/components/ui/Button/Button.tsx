@@ -22,9 +22,11 @@ const Button = ({
   children,
   icon,
   onClick,
+  ...rest
 }: Props) => {
   return (
     <button
+      {...rest}
       className={cn(
         className,
         styles[styleType],

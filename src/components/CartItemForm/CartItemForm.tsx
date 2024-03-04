@@ -12,8 +12,8 @@ type Props = {
 
 const CartItemForm = ({ book, initialAmount = 1 }: Props) => {
   const cart = useCartStore();
-  const item = cart.getItem(book.id);
   const [amount, setAmount] = useState(initialAmount);
+  const item = cart.getItem(book.id) || { book, amount };
   const clickHandle = () => {
     let amountClamped = clamp(amount, 1, book.amount);
     if (amountClamped === amount) {
@@ -41,11 +41,11 @@ const CartItemForm = ({ book, initialAmount = 1 }: Props) => {
         <div className="text-xl">
           <span className="font-medium text-gray-800 mr-2">Total:</span>
           <span className="font-bold  text-red-500" data-testid="total-price">
-            ${(book.price * amount).toFixed(2)}
+            ${cart.itemPrice(item)}
           </span>
         </div>
         <Button
-          disabled={book.amount <= 0 || amount === 0 || amount > book.amount}
+          disabled={book.amount < 1 || amount < 1 || amount > book.amount}
           onClick={clickHandle}
           color="green"
           className="w-32">

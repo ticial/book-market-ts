@@ -32,7 +32,7 @@ const CartItem = ({ item }: Props) => {
           />
 
           <div className="font-bold text-green-700 w-20 text-center">
-            ${(book.price * amount).toFixed(2)}
+            ${cart.itemPrice(item)}
           </div>
           <Button
             styleType="icon"

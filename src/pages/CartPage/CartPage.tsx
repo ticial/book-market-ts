@@ -33,7 +33,7 @@ const CartPage = () => {
               <div className="flex gap-3 justify-between items-center flex-col xs:flex-row p-3 border border-green-600 rounded-lg">
                 <div className="ml-2 font-bold w-44 min-w-fit text-center xs:text-left">
                   <span className=" text-slate-700">
-                    Total price: ${cart.totalPrice().toFixed(2)}
+                    Total price: ${cart.totalPrice()}
                   </span>
                 </div>
 

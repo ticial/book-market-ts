@@ -15,7 +15,7 @@
 }
 
 .greyFilled {
-  @apply bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 text-white;
+  @apply bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 text-white disabled:bg-gray-300;
 }
 
 .grey {

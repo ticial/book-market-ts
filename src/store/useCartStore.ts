@@ -3,6 +3,7 @@ import { useContextSelector, useContextUpdate } from "./AppContext";
 import { ICartItem } from "types/cartItem";
 import { fakeBooksApi } from "api/booksApi";
 import { IBook } from "types/book";
+import { clamp } from "utils/numberUtils";
 
 const STORAGE_KEY = "cart";
 
@@ -24,6 +25,7 @@ export const useCartStore = () => {
 
   const push = (book: IBook, amount: number) => {
     const itemIdx = items.findIndex((item) => item.book.id === book.id);
+    amount = clamp(amount, 1, book.amount);
     let updatedCart: ICartItem[];
     if (itemIdx > -1) {
       if (items[itemIdx].amount === amount) {
@@ -45,8 +47,13 @@ export const useCartStore = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedCart));
   };
 
+  const itemPrice = (item: ICartItem) =>
+    (item.amount * item.book.price).toFixed(2);
+
   const totalPrice = () =>
-    items.reduce((sum, item) => (sum += item.amount * item.book.price), 0);
+    items
+      .reduce((sum, item) => (sum += item.amount * item.book.price), 0)
+      .toFixed(2);
 
   const purchase = () => {
     fakeBooksApi.purchase(items);
@@ -60,5 +67,14 @@ export const useCartStore = () => {
   const getItem = (bookId: number) =>
     items.find((item) => item.book.id === bookId);
 
-  return { items, push, remove, purchase, itemsAmount, totalPrice, getItem };
+  return {
+    items,
+    push,
+    remove,
+    purchase,
+    itemsAmount,
+    totalPrice,
+    getItem,
+    itemPrice,
+  };
 };

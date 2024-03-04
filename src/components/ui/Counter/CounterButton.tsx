@@ -1,5 +1,4 @@
 import Button from "../Button/Button";
-import styles from "./Counter.module.css";
 
 type Props = {
   text: string;
