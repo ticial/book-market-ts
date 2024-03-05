@@ -24,8 +24,10 @@ const Search = ({ value, onChange }: Props) => {
   };
 
   const clickHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     onChange(searchText.trim());
   };
+
   return (
     <form className={styles.form}>
       <input
@@ -35,9 +37,6 @@ const Search = ({ value, onChange }: Props) => {
         onChange={inputHandle}
         value={searchText}
       />
-      {/* <button onClick={clickHandle} className={styles.button}>
-        <Icon type="search" className="w-5 h-5" />
-      </button> */}
       <Button onClick={clickHandle} className="w-20" rounded="none">
         <Icon type="search" className="w-5 h-5" />
       </Button>
