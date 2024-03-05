@@ -18,6 +18,7 @@ export enum LEVEL_FILTER_OPTIONS {
 
 const BOOKS_STORAGE_KEY = "books";
 
+// like a database
 function getBooks() {
   let storageItem = localStorage.getItem(BOOKS_STORAGE_KEY);
   if (!storageItem) {
@@ -31,33 +32,22 @@ function getBooks() {
   }
 }
 
-function filterByPrice(book: IBook, filter: PRICE_FILTER_OPTIONS) {
-  switch (filter) {
-    case PRICE_FILTER_OPTIONS.LESS15:
-      return book.price < 15;
-    case PRICE_FILTER_OPTIONS.BTW15AND30:
-      return book.price >= 15 && book.price < 30;
-    case PRICE_FILTER_OPTIONS.GREATER30:
-      return book.price >= 30;
-    default:
-      return true;
-  }
-}
-
-function filterByLevel(book: IBook, filter: LEVEL_FILTER_OPTIONS) {
-  switch (filter) {
-    case LEVEL_FILTER_OPTIONS.BEGINNER:
-      return book.level === "Beginner";
-    case LEVEL_FILTER_OPTIONS.MIDDLE:
-      return book.level === "Middle";
-    case LEVEL_FILTER_OPTIONS.PRO:
-      return book.level === "Pro";
-    default:
-      return true;
-  }
-}
-
 const books: IBook[] = getBooks();
+
+const PRICE_FILTER = {
+  [PRICE_FILTER_OPTIONS.ANY]: () => true,
+  [PRICE_FILTER_OPTIONS.LESS15]: (book: IBook) => book.price < 15,
+  [PRICE_FILTER_OPTIONS.BTW15AND30]: (book: IBook) =>
+    book.price >= 15 && book.price < 30,
+  [PRICE_FILTER_OPTIONS.GREATER30]: (book: IBook) => book.price >= 30,
+};
+
+const LEVEL_FILTER = {
+  [LEVEL_FILTER_OPTIONS.ANY]: () => true,
+  [LEVEL_FILTER_OPTIONS.BEGINNER]: (book: IBook) => book.level === "Beginner",
+  [LEVEL_FILTER_OPTIONS.MIDDLE]: (book: IBook) => book.level === "Middle",
+  [LEVEL_FILTER_OPTIONS.PRO]: (book: IBook) => book.level === "Pro",
+};
 
 export const fakeBooksApi = {
   async fetchBooks(
@@ -75,8 +65,8 @@ export const fakeBooksApi = {
       const book = books[i];
 
       if (
-        filterByLevel(book, levelFilter) &&
-        filterByPrice(book, priceFilter) &&
+        PRICE_FILTER[priceFilter](book) &&
+        LEVEL_FILTER[levelFilter](book) &&
         (query === "" ||
           regex.test(book.author) ||
           regex.test(book.title) ||

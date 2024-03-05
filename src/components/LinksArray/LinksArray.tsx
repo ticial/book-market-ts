@@ -7,7 +7,7 @@ const LinksArray = ({ valuesArray, handleClick }: Props) => {
   return (
     <>
       {valuesArray.map((value, i, array) => (
-        <button key={value} onClick={(e) => handleClick(value)}>
+        <button key={value} onClick={() => handleClick(value)}>
           <span className="link">{value}</span>
           {i + 1 < array.length && <span>,&nbsp;</span>}
         </button>

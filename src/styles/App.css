@@ -23,13 +23,6 @@ body {
   box-shadow: 0 -4px 6px -1px #e0e7ff, 0 -2px 4px -2px #e0e7ff;
 }
 
-.card-image {
-  @apply flex justify-center items-center;
-  background-color: #ececec;
-  width: 250px;
-  min-height: 374px;
-}
-
 .truncate {
   white-space: nowrap;
   overflow: hidden;

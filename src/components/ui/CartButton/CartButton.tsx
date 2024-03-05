@@ -1,19 +1,21 @@
+import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import styles from "./CartButton.module.css";
 
-type Props = { count: number; onClick: () => void };
+type Props = { count: number };
 
-const CartButton = ({ count, onClick }: Props) => {
+const CartButton = ({ count }: Props) => {
   return (
-    <Button
-      styleType="icon"
-      rounded="full"
-      color="grey"
-      icon="cart"
-      onClick={onClick}
-      className="relative">
-      {count > 0 && <p className={styles.badge}>{count}</p>}
-    </Button>
+    <Link to="/cart">
+      <Button
+        styleType="icon"
+        rounded="full"
+        color="grey"
+        icon="cart"
+        className="relative">
+        {count > 0 && <p className={styles.badge}>{count}</p>}
+      </Button>
+    </Link>
   );
 };
 

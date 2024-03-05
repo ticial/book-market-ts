@@ -1,0 +1,6 @@
+.image {
+  @apply flex justify-center items-center border border-gray-400 justify-self-start;
+  background-color: #ececec;
+  width: 250px;
+  min-height: 374px;
+}

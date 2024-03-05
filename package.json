@@ -14,6 +14,8 @@
     "@types/react-dom": "^18.2.14",
     "@types/react-router-dom": "^5.3.3",
     "classnames": "^2.5.1",
+    "mobx": "^6.12.0",
+    "mobx-react-lite": "^4.0.5",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

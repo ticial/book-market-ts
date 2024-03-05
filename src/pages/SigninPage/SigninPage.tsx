@@ -1,31 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { DEFAUL_USER_ICON } from "api/authApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUserStore } from "store/useUserStore";
 import Panel from "components/ui/Panel/Panel";
 import Button from "components/ui/Button/Button";
 import styles from "./SigninPage.module.css";
+import userStore from "store/userStore";
+import { observer } from "mobx-react-lite";
 
-const SigninPage = () => {
+const SigninPage = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const { user, signin } = useUserStore();
+  const { user, signin } = userStore;
+  const lengthCheck = username.length >= 4 && username.length <= 16;
+
   const signinHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (lengthCheck()) {
+    if (lengthCheck) {
       signin(username);
     }
   };
+
+  const handleInputUsername = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value);
+
   useEffect(() => {
     if (user) {
       navigate(location.state?.from || "/"); // go to previous page
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-  const lengthCheck = () => {
-    return username.length >= 4 && username.length <= 16;
-  };
 
   return (
     <div className="centered">
@@ -46,13 +50,13 @@ const SigninPage = () => {
               placeholder="Enter username"
               name="username"
               type="text"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleInputUsername}
               value={username}
             />
           </div>
           <Button
             type="submit"
-            disabled={!lengthCheck()}
+            disabled={!lengthCheck}
             rounded="full"
             className="w-full "
             onClick={signinHandle}>
@@ -62,6 +66,6 @@ const SigninPage = () => {
       </Panel>
     </div>
   );
-};
+});
 
 export default SigninPage;

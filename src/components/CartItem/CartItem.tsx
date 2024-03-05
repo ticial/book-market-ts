@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ICartItem } from "types/cartItem";
 import Counter from "../ui/Counter/Counter";
-import { useCartStore } from "store/useCartStore";
 import Button from "../ui/Button/Button";
+import cartStore from "store/cartStore";
 
 type Props = {
   item: ICartItem;
@@ -11,10 +11,12 @@ type Props = {
 const CartItem = ({ item }: Props) => {
   const [amount, setAmount] = useState(item.amount);
   const book = item.book;
-  const cart = useCartStore();
+  const cart = cartStore;
   useEffect(() => {
     cart.push(book, amount);
   }, [amount, book, cart]);
+
+  const handleDelete = () => cart.remove(book.id);
   return (
     <div className="rounded-lg border border-gray-400 bg-white/50 p-3">
       <div className="flex gap-4 flex-wrap flex-col xs:flex-row">
@@ -38,7 +40,7 @@ const CartItem = ({ item }: Props) => {
             styleType="icon"
             color="red"
             icon="delete"
-            onClick={() => cart.remove(book.id)}
+            onClick={handleDelete}
           />
         </div>
       </div>

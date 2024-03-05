@@ -1,10 +1,12 @@
-import { useCartStore } from "store/useCartStore";
 import CartItem from "components/CartItem/CartItem";
 import Button from "components/ui/Button/Button";
 import Panel from "components/ui/Panel/Panel";
+import { observer } from "mobx-react-lite";
+import cartStore from "store/cartStore";
 
-const CartPage = () => {
-  const cart = useCartStore();
+const CartPage = observer(() => {
+  const cart = cartStore;
+
   const purchaseHandle = () => {
     cart.purchase();
   };
@@ -51,6 +53,6 @@ const CartPage = () => {
       </Panel>
     </div>
   );
-};
+});
 
 export default CartPage;

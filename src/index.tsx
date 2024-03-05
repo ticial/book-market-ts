@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
-import { ContextProvider } from "./store/AppContext";
 import { BrowserRouter } from "react-router-dom";
 import React from "react";
 
@@ -10,12 +9,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ContextProvider>
-      {/* <BrowserRouter basename="/prometheus-x-course-task"> */}
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ContextProvider>
+    {/* <BrowserRouter basename="/prometheus-x-course-task"> */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

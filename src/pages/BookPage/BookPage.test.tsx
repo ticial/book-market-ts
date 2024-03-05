@@ -1,16 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { booksData } from "api/booksData";
 import CartItemForm from "components/CartItemForm/CartItemForm";
-import { ContextProvider } from "store/AppContext";
 
 const mockBook = booksData[0];
 
 const renderCartItemForm = (amount = 1) => {
-  return render(
-    <ContextProvider>
-      <CartItemForm book={mockBook} initialAmount={amount} />
-    </ContextProvider>
-  );
+  return render(<CartItemForm book={mockBook} initialAmount={amount} />);
 };
 
 test("amount state updates correctly when increased by 1", () => {

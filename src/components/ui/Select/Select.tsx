@@ -2,6 +2,7 @@ import Icon from "components/ui/Icon/Icon";
 import useOutsideClick from "hooks/useOutsideClick";
 import { useState } from "react";
 import SelectItem from "./SelectItem";
+import styles from "./Select.module.css";
 
 export type Option = { key: string; value: string };
 
@@ -28,20 +29,20 @@ const Select = ({ selectedKey, options, onSelect }: Props) => {
       <button
         onClick={() => setOpen(!open)}
         type="button"
-        className="relative w-full cursor-default rounded-full bg-white/50 pl-3 pr-10 text-left text-slate-700 shadow-md border border-slate-300 focus:outline-none hover:bg-white/90 focus:bg-white/90 sm:text-sm sm:leading-6 h-10"
+        className={styles.selected}
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label">
         <span className="flex items-center">
           <span className="ml-3 block truncate">{selected.value}</span>
         </span>
-        <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+        <span className={styles.selectedArrow}>
           <Icon type="chevron-down" className="h-5 w-5 text-gray-400" />
         </span>
       </button>
       {open && (
         <ul
-          className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-2xl bg-white py-1 text-base shadow-lg border border-slate-300 focus:outline-none sm:text-sm"
+          className={styles.options}
           tabIndex={-1}
           role="listbox"
           aria-labelledby="listbox-label"

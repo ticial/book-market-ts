@@ -1,6 +1,7 @@
 import { clamp, formatNumber } from "utils/numberUtils";
 import CounterButton from "./CounterButton";
 import styles from "./Counter.module.css";
+import useOutsideClick from "hooks/useOutsideClick";
 
 type Props = {
   min: number;
@@ -10,35 +11,38 @@ type Props = {
 };
 
 const Counter = ({ min, max, value, onChange }: Props) => {
-  const setAmountChecked = (newValue: number) => {
+  const ref = useOutsideClick<HTMLInputElement>((ref) => {
+    onChange(clamp(Number(ref.current?.value || value), min, max));
+  });
+
+  const setAmountChecked = (newValue: number) => () => {
     if (newValue >= min && newValue <= max) {
       onChange(newValue);
     }
   };
-  const blurHandle = () => {
-    onChange(clamp(value, min, max));
-  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+    onChange(Number(e.target.value));
 
   return (
-    <div className={styles.counter}>
+    <div ref={ref} className={styles.counter}>
       <CounterButton
         disabled={min >= value}
         text="-"
-        onClick={() => setAmountChecked(value - 1)}
+        onClick={setAmountChecked(value - 1)}
       />
       <input
         type="number"
         className={styles.input}
         data-testid="counter-input"
         name="counter-input"
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={handleInput}
         value={formatNumber(value)}
-        onBlur={blurHandle}
       />
       <CounterButton
         disabled={max <= value}
         text="+"
-        onClick={() => setAmountChecked(value + 1)}
+        onClick={setAmountChecked(value + 1)}
       />
     </div>
   );

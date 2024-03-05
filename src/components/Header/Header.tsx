@@ -1,17 +1,18 @@
 import Button from "../ui/Button/Button";
 import CartButton from "../ui/CartButton/CartButton";
 import Userpic from "../Userpic/Userpic";
-import { useUserStore } from "store/useUserStore";
-import { useCartStore } from "store/useCartStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "../ui/MobileMenu/MobileMenu";
 import { Link } from "react-router-dom";
+import userStore from "store/userStore";
+import { observer } from "mobx-react-lite";
+import cartStore from "store/cartStore";
 
-const Header = () => {
+const Header = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useUserStore();
-  const cart = useCartStore();
+  const { user } = userStore;
+  const { itemsAmount } = cartStore;
 
   const buttonsGroup = () => (
     <>
@@ -52,12 +53,7 @@ const Header = () => {
         </div>
 
         <div className="flex gap-4 items-center px-2">
-          {user && (
-            <CartButton
-              count={cart.itemsAmount()}
-              onClick={() => navigate("/cart")}
-            />
-          )}
+          {user && <CartButton count={itemsAmount} />}
           <MobileMenu>{buttonsGroup()}</MobileMenu>
 
           <div className="hidden md:flex gap-4 items-center">
@@ -67,6 +63,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 
 export default function useOutsideClick<T extends HTMLElement>(
-  action: () => void
+  action: (ref: React.RefObject<T>) => void
 ) {
   const ref = useRef<T>(null);
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        action();
+        action(ref);
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);

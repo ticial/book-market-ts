@@ -19,7 +19,8 @@ const BookPage = () => {
 
   const { bookId } = useParams();
   const [book, setBook] = useState<IBook | undefined>(location.state);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(!book);
+
   useEffect(() => {
     if (!book) {
       setIsLoading(true);
@@ -108,7 +109,7 @@ const BookPage = () => {
           {book.description}
         </div>
       </Panel>
-      <div className="hidden xl:flex w-96 h-fit p-4 flex-col rounded-lg border border-gray-300 bg-white/50 shadow-md">
+      <div className="hidden xl:flex w-96 h-fit p-4 flex-col rounded-lg border border-gray-300 bg-white/50 shadow-lg">
         <CartItemForm book={book} />
       </div>
     </div>
