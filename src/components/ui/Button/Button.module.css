@@ -3,7 +3,7 @@
 }
 
 .button.text {
-  @apply px-5 font-medium;
+  @apply px-5 font-medium whitespace-nowrap;
 }
 
 .button.icon {
