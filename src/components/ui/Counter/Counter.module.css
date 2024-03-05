@@ -11,7 +11,3 @@
   -webkit-appearance: none;
   margin: 0;
 }
-
-.button {
-  @apply w-9 bg-slate-500 text-white hover:bg-slate-500/80 disabled:bg-gray-300 active:bg-slate-400 transition-colors;
-}

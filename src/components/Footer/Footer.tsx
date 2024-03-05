@@ -1,8 +1,10 @@
+import styles from "./Footer.module.css";
+
 const Footer = () => {
   return (
-    <footer className="py-5 flex justify-center transition-colors backdrop-blur bg-white/40 supports-backdrop-blur:bg-white/40 border-t border-slate-200">
+    <footer className={styles.footer}>
       <a
-        className="text-secondary link-underline link-underline-opacity-0 text-slate-500 font-medium"
+        className={styles.link}
         href="https://prometheus.org.ua/"
         target="_blank"
         rel="noreferrer">

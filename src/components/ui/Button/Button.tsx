@@ -4,7 +4,7 @@ import Icon, { IconType } from "../Icon/Icon";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   styleType?: "text" | "icon" | "circle";
-  color?: "greyFilled" | "grey" | "red" | "green";
+  color?: "grey" | "red" | "green";
   rounded?: "none" | "lg" | "full";
   size?: number;
   icon?: IconType;
@@ -15,7 +15,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({
   styleType = "text",
-  color = "greyFilled",
+  color = "grey",
   className,
   rounded = "lg",
   size = 10,
@@ -29,6 +29,7 @@ const Button = ({
       {...rest}
       className={cn(
         className,
+        styles.button,
         styles[styleType],
         styles[color],
         `rounded-${rounded}`,

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useDebounce from "hooks/useDebounce";
 import Icon from "components/ui/Icon/Icon";
 import styles from "./Search.module.css";
+import Button from "../Button/Button";
 
 type Props = {
   value: string;
@@ -23,7 +24,6 @@ const Search = ({ value, onChange }: Props) => {
   };
 
   const clickHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     onChange(searchText.trim());
   };
   return (
@@ -35,9 +35,12 @@ const Search = ({ value, onChange }: Props) => {
         onChange={inputHandle}
         value={searchText}
       />
-      <button type="submit" onClick={clickHandle} className={styles.button}>
+      {/* <button onClick={clickHandle} className={styles.button}>
         <Icon type="search" className="w-5 h-5" />
-      </button>
+      </button> */}
+      <Button onClick={clickHandle} className="w-20" rounded="none">
+        <Icon type="search" className="w-5 h-5" />
+      </Button>
     </form>
   );
 };

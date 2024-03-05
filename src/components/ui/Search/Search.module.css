@@ -1,11 +1,7 @@
 .form {
-  @apply flex items-center justify-center w-full h-10;
+  @apply flex items-center justify-center w-full h-10 shadow-md border border-slate-300 rounded-full  overflow-hidden;
 }
 
 .input {
-  @apply h-full rounded-l-full outline-none w-full px-4 border border-slate-300 shadow-md bg-white/50 focus-within:bg-white/90 hover:bg-white/90   text-slate-900 transition-colors overflow-hidden;
-}
-
-.button {
-  @apply flex items-center justify-center w-20 h-full rounded-r-full shadow-md bg-slate-500 hover:bg-slate-500/80 active:bg-slate-400 text-white transition-colors font-medium;
+  @apply h-full outline-none w-full px-4 bg-white/50 focus-within:bg-white/90 hover:bg-white/90 text-slate-900 transition-colors border-r  border-slate-300;
 }

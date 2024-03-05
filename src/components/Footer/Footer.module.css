@@ -1,0 +1,7 @@
+.footer {
+  @apply py-5 flex justify-center transition-colors backdrop-blur bg-white/40 border-t border-slate-200;
+}
+
+.link {
+  @apply text-slate-500 font-medium;
+}

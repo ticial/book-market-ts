@@ -1,0 +1,11 @@
+.header {
+  @apply h-16 flex justify-center fixed w-full backdrop-blur bg-white/50 border-b border-slate-200/50 shadow-md z-50;
+}
+
+.navbar {
+  @apply container xl:max-w-screen-xl flex justify-between items-center py-2 gap-2;
+}
+
+.brand {
+  @apply flex gap-2 items-center mx-4 text-slate-700 whitespace-nowrap font-bold;
+}
